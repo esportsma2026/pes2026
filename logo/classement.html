@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="World Cup 2026 Matches - View all group stage and knockout matches for the Effotbale tournament.">
+  <title>World Cup 2026 Matches - Effotbale</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="images/site-logo.jpg">
+  <style>
+    .third-ranking-table { width:100%; border-collapse: collapse; margin-top: 8px; }
+    .third-ranking-table th { font-family:'Orbitron',sans-serif; font-size:0.6rem; text-transform:uppercase; letter-spacing:1px; color:var(--text-muted); padding:10px 8px; text-align:left; border-bottom:1px solid var(--border-color); background: var(--bg-dark); }
+    .third-ranking-table td { padding:10px 8px; font-size:0.8rem; border-bottom:1px solid rgba(42,42,74,0.2); }
+    .third-ranking-table tr { transition: background 0.2s ease; }
+    .third-ranking-table tr:hover { background: rgba(108,60,225,0.03); }
+    .third-ranking-table .rank-cell { width:32px; text-align:center; font-weight:700; font-family:'Orbitron',sans-serif; font-size:0.85rem; }
+    .third-ranking-table .third-qualified .rank-cell { color: var(--success); text-shadow: 0 0 10px rgba(16,185,129,0.5); }
+    .third-ranking-table .third-qualified .rank-cell::after { content:' ✓'; font-size:0.65rem; }
+    .third-ranking-table .stat-positive { color: var(--success); font-weight:600; }
+    .third-ranking-table .stat-negative { color: var(--danger); font-weight:600; }
+    .third-ranking-table .stat-neutral { color: var(--text-muted); }
+    .third-ranking-table .team-cell { display:flex; align-items:center; gap:6px; }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <a href="index.html" class="nav-logo" aria-label="Effotbale Home">
+        <img src="images/site-logo.jpg" alt="Effotbale" class="nav-logo-img">
+        <span class="nav-logo-text">EFFOTBALE</span>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="index.html" data-i18n="nav.home">Home</a>
+        <a href="tournament.html" data-i18n="nav.tournament">Tournament</a>
+        <a href="draw.html" data-i18n="nav.draw">Draw</a>
+        <a href="classement.html" class="active" data-i18n="nav.matches">Matches</a>
+        <a href="faq.html" data-i18n="nav.faq">FAQ</a>
+        <a href="support.html" data-i18n="nav.support">Support</a>
+        <span class="nav-links-right">
+          <button class="lang-toggle" id="langToggle">العربية</button>
+        </span>
+      </div>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <main id="main-content" class="page-fade">
+    <section class="page-header">
+      <div class="container">
+        <h1 data-i18n="match.title">World Cup 2026 Matches</h1>
+        <p data-i18n="match.desc">All matches for the World Cup 2026 tournament.</p>
+      </div>
+    </section>
+
+    <section class="container" style="padding-bottom: 60px;">
+      <div class="tabs" role="tablist">
+        <button class="tab-btn active" data-tab="groupMatches" role="tab" aria-selected="true" data-i18n="groupMatches">Group Matches</button>
+        <button class="tab-btn" data-tab="thirdPlaceTab" role="tab" aria-selected="false">🥉 Third Place Ranking</button>
+        <button class="tab-btn" data-tab="bracketMatches" role="tab" aria-selected="false" data-i18n="bracketStage">Knockout Stage</button>
+      </div>
+
+      <div class="tab-content active" id="groupMatches">
+        <div id="groupMatchesContainer">
+          <div class="match-list-empty">
+            <div class="empty-icon">🎯</div>
+            <p data-i18n="noDraw">The draw has not been conducted yet.</p>
+            <a href="draw.html" class="btn btn-primary" style="margin-top: 16px;" data-i18n="nav.draw">View Draw</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-content" id="thirdPlaceTab">
+        <div id="thirdPlaceContainer">
+          <div class="match-list-empty">
+            <div class="empty-icon">🥉</div>
+            <p>Third place ranking will appear as groups are completed.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-content" id="bracketMatches">
+        <div id="bracketMatchesContainer">
+          <div class="match-list-empty">
+            <div class="empty-icon">🏆</div>
+            <p data-i18n="bracketUpcoming">Knockout stage matches will be available after the group stage.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="nav-logo"><img src="images/site-logo.jpg" alt="Effotbale" class="nav-logo-img"> <span class="nav-logo-text">EFFOTBALE</span></a>
+          <p>The ultimate mobile football gaming experience.</p>
+          <div class="footer-social">
+            <a href="https://instagram.com/mr_gt100" target="_blank" rel="noopener" aria-label="Instagram"><img src="images/instagram.png" alt="Instagram" style="width:20px;height:20px;border-radius:4px;"></a>
+            <a href="https://wa.me/212783860620" target="_blank" rel="noopener" aria-label="WhatsApp"><img src="images/whatsapp.png" alt="WhatsApp" style="width:20px;height:20px;border-radius:4px;"></a>
+            <a href="mailto:esportsma2026@gmail.com" aria-label="Gmail"><img src="images/gmail.png" alt="Gmail" style="width:20px;height:20px;border-radius:4px;"></a>
+          </div>
+        </div>
+        <div class="footer-links">
+          <h4 data-i18n="nav.tournament">Tournament</h4>
+          <a href="tournament.html">World Cup 2026</a>
+          <a href="draw.html" data-i18n="nav.draw">Draw</a>
+          <a href="classement.html" data-i18n="nav.matches">Matches</a>
+        </div>
+        <div class="footer-links">
+          <h4 data-i18n="nav.support">Support</h4>
+          <a href="faq.html" data-i18n="nav.faq">FAQ</a>
+          <a href="support.html">Contact Us</a>
+          <a href="#">Community</a>
+        </div>
+        <div class="footer-links">
+          <h4>Legal</h4>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Cookie Policy</a>
+          <a href="#">EULA</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Effotbale. <span data-i18n="footer.rights">All rights reserved.</span></p>
+        <p data-i18n="footer.tagline">Made for the love of football.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/languages.js"></script>
+  <script src="js/draw.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/effects.js"></script>
+  <script>
+    (function () {
+      function t(key) {
+        return typeof EffotbaleLang !== 'undefined' ? EffotbaleLang.t(key) : key;
+      }
+      function getLang() {
+        return typeof EffotbaleLang !== 'undefined' ? EffotbaleLang.getLang() : 'en';
+      }
+
+      function renderGroupMatches() {
+        var container = document.getElementById('groupMatchesContainer');
+        var draw = EffotbaleDB.getDraw();
+        if (!draw) {
+          container.innerHTML =
+            '<div class="match-list-empty"><div class="empty-icon">🎯</div><p>' + t('noDraw') + '</p><a href="draw.html" class="btn btn-primary" style="margin-top:16px;">' + t('nav.draw') + '</a></div>';
+          return;
+        }
+        EffotbaleDB.initMatchResults(draw);
+        var matches = EffotbaleDB.getMatchResults();
+        var lang = getLang();
+        var html = '';
+        var groupKeys = Object.keys(draw).sort();
+        groupKeys.forEach(function (key) {
+          html += '<h3 class="group-section-title">' + (lang === 'ar' ? 'المجموعة ' : 'Group ') + key + ' <a href="tournament.html?group=' + key + '" style="font-size:0.75rem;font-weight:400;color:var(--text-muted);text-decoration:none;margin-left:6px;">📊 ' + (lang === 'ar' ? 'الترتيب' : 'Standings') + ' →</a></h3>';
+           html += '<div class="match-list">';
+          var groupMatches = matches.filter(function (m) { return m.group === key; });
+          groupMatches.forEach(function (m, mIdx) {
+            var nameA = lang === 'ar' ? (m.nameArA || m.nameA) : m.nameA;
+            var nameB = lang === 'ar' ? (m.nameArB || m.nameB) : m.nameB;
+            var showScore = m.scoreA !== null && m.scoreB !== null && m.status === 'finished';
+            var scoreDisplay = showScore
+              ? '<span class="score-badge finished" style="animation:scorePop 0.4s cubic-bezier(0.68,-0.55,0.27,1.55) both;">' + m.scoreA + ' - ' + m.scoreB + '</span>'
+              : '<span class="match-date">' + t('matchTbd') + '</span>';
+            html +=
+              '<div class="match-list-item card-hover-glow" tabindex="0" role="button" style="animation:slideUpBounce 0.4s ease ' + (mIdx * 0.05) + 's both;">' +
+                '<div class="match-teams">' +
+                  '<div class="match-team-row"><img src="' + (m.flagA || 'images/' + m.teamA + '.webp') + '" alt="" class="match-team-flag" loading="lazy" onerror="this.src=\'images/' + m.teamA + '.svg\'"><span class="match-team-name">' + nameA + '</span></div>' +
+                  '<div class="match-team-row"><img src="' + (m.flagB || 'images/' + m.teamB + '.webp') + '" alt="" class="match-team-flag" loading="lazy" onerror="this.src=\'images/' + m.teamB + '.svg\'"><span class="match-team-name">' + nameB + '</span></div>' +
+                '</div>' +
+                '<div class="match-meta">' + scoreDisplay + '<span class="match-group-label">' + (lang === 'ar' ? 'المجموعة ' : 'Group ') + key + '</span></div>' +
+              '</div>';
+          });
+          html += '</div>';
+        });
+        container.innerHTML = html;
+      }
+
+      function renderBracketMatches() {
+        var container = document.getElementById('bracketMatchesContainer');
+        var ko = EffotbaleDB.getKnockoutData();
+        var lang = getLang();
+        var matches = EffotbaleDB.getMatchResults();
+        var draw = EffotbaleDB.getDraw();
+        var allGroupsDone = draw && matches.length > 0 && matches.every(function (m) { return m.status === 'finished'; });
+
+        if (!ko) {
+          if (!allGroupsDone) {
+            /* Show placeholder bracket */
+            var placeholderHtml = '<h3 class="group-section-title">' + (lang === 'ar' ? 'دور الـ32' : 'Round of 32') + '</h3><div class="match-list">';
+            var pairings = [
+              { a: 'A1', b: 'W8' }, { a: 'B1', b: 'W7' }, { a: 'C1', b: 'W6' }, { a: 'D1', b: 'W5' },
+              { a: 'E1', b: 'W4' }, { a: 'F1', b: 'W3' }, { a: 'G1', b: 'W2' }, { a: 'H1', b: 'W1' },
+              { a: 'I2', b: 'L2' }, { a: 'J2', b: 'K2' }, { a: 'I1', b: 'L1' }, { a: 'J1', b: 'K1' },
+              { a: 'A2', b: 'C2' }, { a: 'D2', b: 'F2' }, { a: 'B2', b: 'E2' }, { a: 'G2', b: 'H2' }
+            ];
+            pairings.forEach(function (p) {
+              placeholderHtml +=
+                '<div class="match-list-item" style="opacity:0.6;animation:fadeSlideIn 0.3s ease both;">' +
+                  '<div class="match-teams">' +
+                    '<div class="match-team-row"><span class="match-team-name" style="font-family:\'Orbitron\',sans-serif;letter-spacing:1px;font-size:0.75rem;">' + p.a + '</span></div>' +
+                    '<div class="match-team-row"><span class="match-team-name" style="font-family:\'Orbitron\',sans-serif;letter-spacing:1px;font-size:0.75rem;">' + p.b + '</span></div>' +
+                  '</div>' +
+                  '<div class="match-meta"><span class="match-date">' + (lang === 'ar' ? 'في الانتظار' : 'Awaiting') + '</span></div>' +
+                '</div>';
+            });
+            placeholderHtml += '</div>';
+            container.innerHTML = placeholderHtml;
+            return;
+          }
+          container.innerHTML = '<div class="match-list-empty"><div class="empty-icon">🏆</div><p>' + t('bracketUpcoming') + '</p></div>';
+          return;
+        }
+
+        var html = '';
+        var rounds = [
+          { key: 'r32', labelEn: 'Round of 32', labelAr: 'دور الـ32' },
+          { key: 'r16', labelEn: 'Round of 16', labelAr: 'دور الـ16' },
+          { key: 'qf', labelEn: 'Quarter Finals', labelAr: 'ربع النهائي' },
+          { key: 'sf', labelEn: 'Semi Finals', labelAr: 'نصف النهائي' },
+          { key: 'third', labelEn: 'Third Place', labelAr: 'المركز الثالث' },
+          { key: 'final', labelEn: 'Final', labelAr: 'النهائي' }
+        ];
+
+        rounds.forEach(function (r) {
+          var matches = ko[r.key] || [];
+          if (matches.length === 0) return;
+          var isFirst = r.key === 'r32';
+          html += '<h3 class="group-section-title" style="margin-top:24px;">' + (lang === 'ar' ? r.labelAr : r.labelEn) + (isFirst ? ' <a href="tournament.html#knockoutSection" style="font-size:0.75rem;font-weight:400;color:var(--text-muted);text-decoration:none;margin-left:6px;">🏆 ' + (lang === 'ar' ? 'عرض القرعة' : 'View Bracket') + ' →</a>' : '') + '</h3>';
+          /* Group by parentId to show one card per tie with both legs */
+          var ties = {};
+          matches.forEach(function (m) {
+            var pid = m.parentId || m.id;
+            if (!ties[pid]) ties[pid] = { matchIndex: m.matchIndex, legs: [] };
+            ties[pid].legs.push(m);
+          });
+          var tieKeys = Object.keys(ties).sort();
+          html += '<div class="match-list">';
+          tieKeys.forEach(function (pid, tIdx) {
+            var tie = ties[pid];
+            var leg1 = tie.legs.find(function (l) { return l.leg === 1; });
+            var leg2 = tie.legs.find(function (l) { return l.leg === 2; });
+            if (!leg1) return;
+            var m = leg1;
+            var nameA = lang === 'ar' ? (m.nameArA || m.nameA || m.teamA || 'TBD') : (m.nameA || m.teamA || 'TBD');
+            var nameB = lang === 'ar' ? (m.nameArB || m.nameB || m.teamB || 'TBD') : (m.nameB || m.teamB || 'TBD');
+            /* Calculate aggregate */
+            var allDone = leg1 && leg2 && leg1.scoreA !== null && leg1.scoreB !== null && leg2.scoreA !== null && leg2.scoreB !== null && leg1.status === 'finished' && leg2.status === 'finished';
+            var aggA = allDone ? (leg1.scoreA + leg2.scoreB) : null;
+            var aggB = allDone ? (leg1.scoreB + leg2.scoreA) : null;
+            var aggDisplay = allDone
+              ? '<span class="score-badge finished" style="animation:scorePop 0.4s cubic-bezier(0.68,-0.55,0.27,1.55) both;background:var(--gradient-1);">' + aggA + ' - ' + aggB + '</span>'
+              : '<span class="match-date">' + t('matchTbd') + '</span>';
+            /* Leg details */
+            var legDetail = '';
+            if (leg1 && leg2) {
+              var s1A = leg1.scoreA !== null ? leg1.scoreA : '?';
+              var s1B = leg1.scoreB !== null ? leg1.scoreB : '?';
+              var s2A = leg2.scoreA !== null ? leg2.scoreA : '?';
+              var s2B = leg2.scoreB !== null ? leg2.scoreB : '?';
+              legDetail = '<div style="font-size:0.65rem;color:var(--text-muted);margin-top:4px;">Allez ' + s1A + '-' + s1B + ' | Retour ' + s2A + '-' + s2B + '</div>';
+            }
+            html +=
+              '<div class="match-list-item card-hover-glow" tabindex="0" role="button" style="animation:slideUpBounce 0.4s ease ' + (tIdx * 0.05) + 's both;" onclick="window.location.href=\'match-detail.html?id=' + leg1.id + '\'">' +
+                '<div class="match-teams">' +
+                  '<div class="match-team-row">' + (m.flagA ? '<img src="' + m.flagA + '" alt="" class="match-team-flag" style="width:24px;height:16px;" onerror="this.style.display=\'none\'">' : '') + '<span class="match-team-name">' + nameA + '</span></div>' +
+                  '<div class="match-team-row">' + (m.flagB ? '<img src="' + m.flagB + '" alt="" class="match-team-flag" style="width:24px;height:16px;" onerror="this.style.display=\'none\'">' : '') + '<span class="match-team-name">' + nameB + '</span></div>' +
+                '</div>' +
+                '<div class="match-meta">' + aggDisplay + legDetail + '</div>' +
+              '</div>';
+          });
+          html += '</div>';
+        });
+        container.innerHTML = html || '<div class="match-list-empty"><div class="empty-icon">🏆</div><p>' + t('bracketUpcoming') + '</p></div>';
+      }
+
+      function renderThirdPlace() {
+        var container = document.getElementById('thirdPlaceContainer');
+        var third = EffotbaleDB.getBestThirdRanking();
+        var lang = getLang();
+        if (!third || third.length === 0) {
+          container.innerHTML = '<div class="match-list-empty"><div class="empty-icon">🥉</div><p>' + (lang === 'ar' ? 'لم تكتمل أي مجموعة بعد.' : 'No groups completed yet.') + '</p></div>';
+          return;
+        }
+        var html = '<h3 class="group-section-title">' + (lang === 'ar' ? 'ترتيب الفرق صاحبة المركز الثالث' : 'Third-Placed Teams Ranking') + '</h3>';
+        html += '<table class="third-ranking-table"><thead><tr><th>#</th><th>' + (lang === 'ar' ? 'المنتخب' : 'Team') + '</th><th>' + (lang === 'ar' ? 'المجموعة' : 'Group') + '</th><th>MP</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>' + (lang === 'ar' ? 'فارق' : 'GD') + '</th><th>' + (lang === 'ar' ? 'نقاط' : 'Pts') + '</th></tr></thead><tbody>';
+        third.forEach(function (t, idx) {
+          var qualified = idx < 8;
+          var name = lang === 'ar' ? (t.nameAr || t.name) : t.name;
+          var gc = t.gd > 0 ? 'stat-positive' : (t.gd < 0 ? 'stat-negative' : 'stat-neutral');
+          html += '<tr class="' + (qualified ? 'third-qualified' : '') + '" style="animation:fadeSlideIn 0.3s ease ' + (idx * 0.04) + 's both;"><td class="rank-cell">' + (idx + 1) + '</td><td><div class="team-cell"><img src="' + t.flag + '" alt="" style="width:22px;height:15px;border-radius:2px;" onerror="this.style.display=\'none\'"> ' + name + '</div></td><td style="font-family:\'Orbitron\',sans-serif;font-size:0.7rem;color:var(--text-muted);">' + t._group + '</td><td>' + t.mp + '</td><td>' + t.w + '</td><td>' + t.d + '</td><td>' + t.l + '</td><td>' + t.gf + '</td><td>' + t.ga + '</td><td class="' + gc + '">' + (t.gd > 0 ? '+' : '') + t.gd + '</td><td style="font-weight:700;font-family:\'Orbitron\',sans-serif;">' + t.pts + '</td></tr>';
+        });
+        html += '</tbody></table>';
+        if (third.length >= 8) {
+          html += '<p style="margin-top:12px;color:var(--text-muted);font-size:0.8rem;">' + (lang === 'ar' ? 'المراكز 1-8 تتأهل إلى دور خروج المغلوب' : 'Positions 1-8 qualify for the knockout stage') + '</p>';
+        }
+        container.innerHTML = html;
+      }
+
+      function autoRefresh() {
+        renderGroupMatches();
+        renderThirdPlace();
+
+        var allMatches = EffotbaleDB.getMatchResults();
+        var hasDraw = EffotbaleDB.getDraw();
+        var allDone = hasDraw && allMatches.length > 0 && allMatches.every(function (m) { return m.status === 'finished'; });
+        var bracketTab = document.querySelector('[data-tab="bracketMatches"]');
+        var bracketContent = document.getElementById('bracketMatches');
+        if (bracketTab) bracketTab.style.display = allDone ? '' : 'none';
+        if (bracketContent && !allDone) bracketContent.classList.remove('active');
+
+        renderBracketMatches();
+
+        /* Handle URL params: ?group=X to scroll to group, ?tab=knockout to open knockout */
+        var params = new URLSearchParams(window.location.search);
+        var groupParam = params.get('group');
+        if (groupParam) {
+          var target = document.querySelector('.group-section-title');
+          if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        var tabParam = params.get('tab');
+        if (tabParam === 'knockout' && allDone) {
+          var koTab = document.querySelector('[data-tab="bracketMatches"]');
+          if (koTab) koTab.click();
+        }
+      }
+
+      autoRefresh();
+
+      document.addEventListener('languageChanged', autoRefresh);
+      document.addEventListener('effotbaleUpdate', autoRefresh);
+      window.addEventListener('storage', function (e) {
+        if (e.key && e.key.indexOf('effotbale_') === 0) autoRefresh();
+      });
+    })();
+  </script>
+</body>
+</html>

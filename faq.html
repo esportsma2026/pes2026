@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Effotbale FAQ - How to play, general questions about World Cup 2026.">
+  <title>FAQ - Effotbale</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="images/site-logo.jpg">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <a href="index.html" class="nav-logo" aria-label="Effotbale Home">
+        <img src="images/site-logo.jpg" alt="Effotbale" class="nav-logo-img">
+        <span class="nav-logo-text">EFFOTBALE</span>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="index.html" data-i18n="nav.home">Home</a>
+        <a href="tournament.html" data-i18n="nav.tournament">Tournament</a>
+        <a href="draw.html" data-i18n="nav.draw">Draw</a>
+        <a href="classement.html" data-i18n="nav.matches">Matches</a>
+        <a href="faq.html" class="active" data-i18n="nav.faq">FAQ</a>
+        <a href="support.html" data-i18n="nav.support">Support</a>
+        <span class="nav-links-right">
+          <button class="lang-toggle" id="langToggle">العربية</button>
+        </span>
+      </div>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <main id="main-content" class="page-fade">
+    <section class="page-header">
+      <div class="container">
+        <h1 data-i18n="faq.title">Frequently Asked Questions</h1>
+        <p data-i18n="faq.desc">Quick answers to common questions about Effotbale.</p>
+      </div>
+    </section>
+
+    <section class="container" style="padding-bottom: 60px;">
+      <div class="faq-search">
+        <span class="search-icon" aria-hidden="true">🔍</span>
+        <input type="search" id="faqSearch" placeholder="Search questions..." aria-label="Search">
+      </div>
+
+      <div class="faq-categories" role="tablist" aria-label="FAQ categories">
+        <button class="faq-category-btn active" data-category="all" role="tab">All</button>
+        <button class="faq-category-btn" data-category="howtoplay" role="tab">How to Play</button>
+        <button class="faq-category-btn" data-category="general" role="tab">General</button>
+      </div>
+
+      <div class="faq-list" id="faqList">
+        <!-- How to Play -->
+        <div class="faq-item" data-category="howtoplay">
+          <button class="faq-question" aria-expanded="false">How do I start playing Effotbale?<span class="faq-arrow">▼</span></button>
+          <div class="faq-answer"><p>Download Effotbale from the App Store or Google Play. Create an account or log in, then choose your favorite team and start playing matches. The World Cup 2026 tournament is the main event!</p></div>
+        </div>
+        <div class="faq-item" data-category="howtoplay">
+          <button class="faq-question" aria-expanded="false">What are the basic controls?<span class="faq-arrow">▼</span></button>
+          <div class="faq-answer"><p>Use the on-screen joystick to move your player. Pass, shoot, and tackle buttons are on the right side. Swipe for special moves like through balls and lob shots. Practice in training mode to master the controls.</p></div>
+        </div>
+        <div class="faq-item" data-category="howtoplay">
+          <button class="faq-question" aria-expanded="false">How does the tournament work?<span class="faq-arrow">▼</span></button>
+          <div class="faq-answer"><p>The World Cup 2026 starts with 48 teams divided into 12 groups of 4. Each team plays every other team in their group. The top 2 teams from each group, plus the 8 best third-placed teams, advance to the Round of 32 knockout stage.</p></div>
+        </div>
+        <div class="faq-item" data-category="howtoplay">
+          <button class="faq-question" aria-expanded="false">How do I win matches?<span class="faq-arrow">▼</span></button>
+          <div class="faq-answer"><p>Score more goals than your opponent within the match time. Use strategy, good passing, and timely shooting. Defend solidly and counter-attack when you win the ball back.</p></div>
+        </div>
+        <div class="faq-item" data-category="howtoplay">
+          <button class="faq-question" aria-expanded="false">What happens if a knockout match ends in a draw?<span class="faq-arrow">▼</span></button>
+          <div class="faq-answer"><p>In knockout rounds, if the score is tied after regular time, the match goes to extra time (2x15 min). If still tied, a penalty shootout decides the winner. There are no draws in knockout matches.</p></div>
+        </div>
+        <div class="faq-item" data-category="howtoplay">
+          <button class="faq-question" aria-expanded="false">How do I improve my skills?<span class="faq-arrow">▼</span></button>
+          <div class="faq-answer"><p>Play regularly, complete training challenges, and watch replays of your matches. Practice different formations and strategies. Join community tournaments to test your skills against top players.</p></div>
+        </div>
+
+        <!-- General -->
+        <div class="faq-item" data-category="general">
+          <button class="faq-question" aria-expanded="false">What is Effotbale?<span class="faq-arrow">▼</span></button>
+          <div class="faq-answer"><p>Effotbale is a competitive mobile football game featuring the World Cup 2026 tournament with 48 teams in 12 groups. Build your team and compete for glory.</p></div>
+        </div>
+        <div class="faq-item" data-category="general">
+          <button class="faq-question" aria-expanded="false">Is Effotbale free to play?<span class="faq-arrow">▼</span></button>
+          <div class="faq-answer"><p>Yes, Effotbale is completely free to download and play. All core tournament features are available without spending. Optional in-app purchases are available for cosmetic items.</p></div>
+        </div>
+        <div class="faq-item" data-category="general">
+          <button class="faq-question" aria-expanded="false">Which devices support Effotbale?<span class="faq-arrow">▼</span></button>
+          <div class="faq-answer"><p>Effotbale runs on devices with Android 8.0+ or iOS 13.0+ and at least 3GB of RAM. For the best experience, we recommend a device with 4GB+ RAM and a modern processor.</p></div>
+        </div>
+        <div class="faq-item" data-category="general">
+          <button class="faq-question" aria-expanded="false">How do I contact support?<span class="faq-arrow">▼</span></button>
+          <div class="faq-answer"><p>Visit the <a href="support.html" style="color: var(--primary-light);">Support page</a> to send us a message. You can also reach us on Instagram @mr_gt100, by phone at +212 7 83 86 06 20, or email esportsma2026@gmail.com.</p></div>
+        </div>
+        <div class="faq-item" data-category="general">
+          <button class="faq-question" aria-expanded="false">How is the World Cup 2026 tournament organized?<span class="faq-arrow">▼</span></button>
+          <div class="faq-answer"><p>The tournament features 48 national teams in 12 groups of 4. After group stage, 32 teams advance to knockout rounds: Round of 32 → Round of 16 → Quarter Finals → Semi Finals → Final. The champion lifts the World Cup trophy!</p></div>
+        </div>
+        <div class="faq-item" data-category="general">
+          <button class="faq-question" aria-expanded="false">Can I play with friends?<span class="faq-arrow">▼</span></button>
+          <div class="faq-answer"><p>Yes! Invite friends to friendly matches through the in-game friend system. You can challenge each other and compare your rankings on the leaderboard.</p></div>
+        </div>
+      </div>
+
+      <div class="faq-no-results" id="faqNoResults">
+        <p>No questions found matching your search.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="nav-logo"><img src="images/site-logo.jpg" alt="Effotbale" class="nav-logo-img"> <span class="nav-logo-text">EFFOTBALE</span></a>
+          <p>The ultimate mobile football gaming experience.</p>
+          <div class="footer-social">
+            <a href="https://instagram.com/mr_gt100" target="_blank" rel="noopener" aria-label="Instagram"><img src="images/instagram.png" alt="Instagram" style="width:20px;height:20px;border-radius:4px;"></a>
+            <a href="https://wa.me/212783860620" target="_blank" rel="noopener" aria-label="WhatsApp"><img src="images/whatsapp.png" alt="WhatsApp" style="width:20px;height:20px;border-radius:4px;"></a>
+            <a href="mailto:esportsma2026@gmail.com" aria-label="Gmail"><img src="images/gmail.png" alt="Gmail" style="width:20px;height:20px;border-radius:4px;"></a>
+          </div>
+        </div>
+        <div class="footer-links">
+          <h4 data-i18n="nav.tournament">Tournament</h4>
+          <a href="tournament.html">World Cup 2026</a>
+          <a href="draw.html" data-i18n="nav.draw">Draw</a>
+          <a href="classement.html" data-i18n="nav.matches">Matches</a>
+        </div>
+        <div class="footer-links">
+          <h4 data-i18n="nav.support">Support</h4>
+          <a href="faq.html" data-i18n="nav.faq">FAQ</a>
+          <a href="support.html">Contact Us</a>
+          <a href="#">Community</a>
+        </div>
+        <div class="footer-links">
+          <h4>Legal</h4>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Cookie Policy</a>
+          <a href="#">EULA</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Effotbale. <span data-i18n="footer.rights">All rights reserved.</span></p>
+        <p data-i18n="footer.tagline">Made for the love of football.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/languages.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/effects.js"></script>
+</body>
+</html>

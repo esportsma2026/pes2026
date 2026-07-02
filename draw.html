@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Effotbale World Cup 2026 Tournament Draw - View the official draw with 48 teams in 12 groups.">
+  <title>Tournament Draw - Effotbale World Cup 2026</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="images/site-logo.jpg">
+  <style>
+    .draw-page-hero {
+      min-height: 60vh; display: flex; align-items: center; justify-content: center; text-align: center;
+      position: relative; overflow: hidden;
+      background:
+        radial-gradient(ellipse at 30% 40%, rgba(108,60,225,0.18) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 60%, rgba(245,158,11,0.12) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 0%, rgba(6,182,212,0.06) 0%, transparent 40%),
+        var(--bg-dark);
+      padding: 120px 0 80px;
+    }
+    .draw-page-hero::before {
+      content: ''; position: absolute; inset: 0;
+      background-image:
+        radial-gradient(1px 1px at 8% 15%, rgba(255,255,255,0.5), transparent),
+        radial-gradient(1px 1px at 25% 55%, rgba(255,255,255,0.3), transparent),
+        radial-gradient(1.5px 1.5px at 45% 8%, rgba(255,255,255,0.6), transparent),
+        radial-gradient(1px 1px at 65% 75%, rgba(255,255,255,0.3), transparent),
+        radial-gradient(1px 1px at 85% 35%, rgba(255,255,255,0.4), transparent),
+        radial-gradient(1.5px 1.5px at 12% 80%, rgba(255,255,255,0.2), transparent),
+        radial-gradient(1px 1px at 40% 40%, rgba(255,255,255,0.3), transparent),
+        radial-gradient(1px 1px at 75% 12%, rgba(255,255,255,0.4), transparent),
+        radial-gradient(1.5px 1.5px at 55% 85%, rgba(255,255,255,0.2), transparent),
+        radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,0.3), transparent),
+        radial-gradient(1px 1px at 90% 65%, rgba(255,255,255,0.25), transparent);
+      animation: bgPan 25s linear infinite;
+      pointer-events: none; z-index: 1;
+    }
+    .draw-page-hero .container { position: relative; z-index: 3; }
+    .draw-page-hero .glow-orb { position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; z-index: 1; }
+    .draw-page-hero .glow-orb.d1 { width: 400px; height: 400px; background: var(--primary); top: -100px; right: -100px; opacity: 0.2; animation: float 9s ease-in-out infinite; }
+    .draw-page-hero .glow-orb.d2 { width: 300px; height: 300px; background: var(--secondary); bottom: -80px; left: -80px; opacity: 0.15; animation: float 11s ease-in-out infinite reverse; }
+    .draw-hero-icon {
+      font-size: 4rem; display: block; margin-bottom: 16px;
+      animation: float 3s ease-in-out infinite;
+      filter: drop-shadow(0 0 20px rgba(245,158,11,0.3));
+    }
+    .draw-page-hero h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(2.2rem, 6vw, 4rem); font-weight: 900; line-height: 1.15;
+      background: linear-gradient(135deg, #fff 0%, var(--primary-light) 30%, var(--secondary) 60%, #fff 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      animation: shimmerText 4s linear infinite; margin-bottom: 12px;
+    }
+    .draw-page-hero .draw-hero-sub {
+      color: var(--text-secondary); font-size: clamp(0.95rem, 2vw, 1.15rem);
+      max-width: 550px; margin: 0 auto 28px; position: relative; z-index: 2;
+    }
+    .draw-hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(108,60,225,0.15); border: 1px solid rgba(108,60,225,0.3);
+      padding: 6px 20px; border-radius: 50px;
+      font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px;
+      color: var(--primary-light); margin-bottom: 20px;
+      animation: glowPulse 3s ease-in-out infinite;
+    }
+    .draw-launch-btn {
+      background: var(--gradient-2); color: white; border: none;
+      padding: 18px 48px; border-radius: 50px; font-family: 'Orbitron', sans-serif;
+      font-size: 1.1rem; font-weight: 700; cursor: pointer; letter-spacing: 2px;
+      text-transform: uppercase; position: relative; overflow: hidden;
+      box-shadow: 0 4px 30px rgba(245,158,11,0.4);
+      transition: all 0.3s ease;
+    }
+    .draw-launch-btn::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+      transform: translateX(-100%);
+      transition: transform 0.6s ease;
+    }
+    .draw-launch-btn:hover::before { transform: translateX(100%); }
+    .draw-launch-btn:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 8px 40px rgba(245,158,11,0.6);
+    }
+    .draw-launch-btn:active { transform: scale(0.97); }
+    .draw-result-area {
+      opacity: 0; transform: translateY(30px); transition: all 0.6s ease;
+      pointer-events: none;
+    }
+    .draw-result-area.visible {
+      opacity: 1; transform: translateY(0); pointer-events: auto;
+    }
+    .draw-date {
+      text-align: center; color: var(--text-muted); font-size: 0.8rem;
+      margin-top: 32px; font-family: 'Orbitron', sans-serif; letter-spacing: 0.5px;
+    }
+    .draw-actions {
+      display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 40px;
+    }
+    .draw-actions .btn { position: relative; overflow: hidden; }
+    .draw-actions .btn::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      transform: translateX(-100%);
+    }
+    .draw-actions .btn:hover::after { transform: translateX(100%); transition: transform 0.6s ease; }
+    .draw-group-card {
+      animation: slideUpBounce 0.5s ease both;
+    }
+    .draw-groups-12 .draw-group-card:nth-child(1) { animation-delay: 0.02s; }
+    .draw-groups-12 .draw-group-card:nth-child(2) { animation-delay: 0.06s; }
+    .draw-groups-12 .draw-group-card:nth-child(3) { animation-delay: 0.10s; }
+    .draw-groups-12 .draw-group-card:nth-child(4) { animation-delay: 0.14s; }
+    .draw-groups-12 .draw-group-card:nth-child(5) { animation-delay: 0.18s; }
+    .draw-groups-12 .draw-group-card:nth-child(6) { animation-delay: 0.22s; }
+    .draw-groups-12 .draw-group-card:nth-child(7) { animation-delay: 0.26s; }
+    .draw-groups-12 .draw-group-card:nth-child(8) { animation-delay: 0.30s; }
+    .draw-groups-12 .draw-group-card:nth-child(9) { animation-delay: 0.34s; }
+    .draw-groups-12 .draw-group-card:nth-child(10) { animation-delay: 0.38s; }
+    .draw-groups-12 .draw-group-card:nth-child(11) { animation-delay: 0.42s; }
+    .draw-groups-12 .draw-group-card:nth-child(12) { animation-delay: 0.46s; }
+    .draw-locked-msg {
+      text-align: center; padding: 32px 20px;
+      background: var(--bg-card); border: 1px solid var(--border-color);
+      border-radius: var(--radius-md); margin-bottom: 32px;
+    }
+    .draw-locked-msg .lock-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3);
+      color: var(--danger); padding: 4px 16px; border-radius: 50px;
+      font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+    .draw-locked-msg p { color: var(--text-secondary); font-size: 0.9rem; margin: 0; }
+    @media (max-width: 768px) {
+      .draw-page-hero { min-height: 50vh; padding: 100px 0 60px; }
+      .draw-page-hero .glow-orb.d1 { width: 250px; height: 250px; }
+      .draw-page-hero .glow-orb.d2 { width: 180px; height: 180px; }
+      .draw-launch-btn { padding: 14px 32px; font-size: 0.95rem; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <a href="index.html" class="nav-logo" aria-label="Effotbale Home">
+        <img src="images/site-logo.jpg" alt="Effotbale" class="nav-logo-img">
+        <span class="nav-logo-text">EFFOTBALE</span>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="index.html" data-i18n="nav.home">Home</a>
+        <a href="tournament.html" data-i18n="nav.tournament">Tournament</a>
+        <a href="draw.html" class="active" data-i18n="nav.draw">Draw</a>
+        <a href="classement.html" data-i18n="nav.matches">Matches</a>
+        <a href="faq.html" data-i18n="nav.faq">FAQ</a>
+        <a href="support.html" data-i18n="nav.support">Support</a>
+        <span class="nav-links-right">
+          <button class="lang-toggle" id="langToggle">العربية</button>
+        </span>
+      </div>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <main id="main-content">
+    <section class="draw-page-hero">
+      <div class="glow-orb d1"></div>
+      <div class="glow-orb d2"></div>
+      <div class="container">
+        <div class="draw-hero-badge" data-i18n="draw.badge">2026 EDITION</div>
+        <span class="draw-hero-icon" aria-hidden="true">🏆</span>
+        <h1 data-i18n="draw.title">Tournament Draw</h1>
+        <p class="draw-hero-sub" data-i18n="draw.desc">The official draw for the World Cup 2026 tournament. 48 teams, 12 groups.</p>
+
+        <div class="draw-launch-area" id="drawLaunchArea">
+          <button class="draw-launch-btn" id="launchDrawBtn">🎲 <span data-i18n="draw.launch">Launch Draw</span></button>
+        </div>
+
+        <div id="drawLockedMsg" class="draw-locked-msg" style="display:none;">
+          <div class="lock-badge">🔒 <span data-i18n="draw.locked">Draw Locked</span></div>
+          <p data-i18n="draw.lockedDesc">The draw has already been conducted. Reset the draw to re-draw.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="container" style="padding-bottom: 60px;">
+      <div class="draw-result-area" id="drawResultArea">
+        <div id="drawGroupsContainer"></div>
+        <div class="draw-actions">
+          <a href="tournament.html" class="btn btn-primary" data-i18n="nav.tournament">View Tournament</a>
+          <a href="classement.html" class="btn btn-secondary" data-i18n="nav.matches">View Matches</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="nav-logo">
+            <img src="images/site-logo.jpg" alt="Effotbale" class="nav-logo-img">
+            <span class="nav-logo-text">EFFOTBALE</span>
+          </a>
+          <p>The ultimate mobile football gaming experience.</p>
+          <div class="footer-social">
+            <a href="https://instagram.com/mr_gt100" target="_blank" rel="noopener" aria-label="Instagram"><img src="images/instagram.png" alt="Instagram" style="width:20px;height:20px;border-radius:4px;"></a>
+            <a href="https://wa.me/212783860620" target="_blank" rel="noopener" aria-label="WhatsApp"><img src="images/whatsapp.png" alt="WhatsApp" style="width:20px;height:20px;border-radius:4px;"></a>
+            <a href="mailto:esportsma2026@gmail.com" aria-label="Gmail"><img src="images/gmail.png" alt="Gmail" style="width:20px;height:20px;border-radius:4px;"></a>
+          </div>
+        </div>
+        <div class="footer-links">
+          <h4 data-i18n="nav.tournament">Tournament</h4>
+          <a href="tournament.html">World Cup 2026</a>
+          <a href="draw.html" data-i18n="nav.draw">Draw</a>
+          <a href="classement.html" data-i18n="nav.matches">Matches</a>
+        </div>
+        <div class="footer-links">
+          <h4 data-i18n="nav.support">Support</h4>
+          <a href="faq.html" data-i18n="nav.faq">FAQ</a>
+          <a href="support.html">Contact Us</a>
+        </div>
+        <div class="footer-links">
+          <h4>Legal</h4>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Cookie Policy</a>
+          <a href="#">EULA</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Effotbale. <span data-i18n="footer.rights">All rights reserved.</span></p>
+        <p data-i18n="footer.tagline">Made for the love of football.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/languages.js"></script>
+  <script src="js/draw.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    (function () {
+      function getLang() {
+        return typeof EffotbaleLang !== 'undefined' ? EffotbaleLang.getLang() : 'en';
+      }
+
+      function renderSavedDraw() {
+        var draw = EffotbaleDraw.loadDraw();
+        if (draw) {
+          document.getElementById('drawLaunchArea').style.display = 'none';
+          document.getElementById('drawLockedMsg').style.display = 'none';
+          document.getElementById('drawResultArea').className = 'draw-result-area visible';
+
+          if (typeof EffotbaleDB !== 'undefined') {
+            EffotbaleDB.initMatchResults(draw);
+          }
+
+          EffotbaleDraw.renderDraw(draw, 'drawGroupsContainer', getLang());
+        }
+      }
+
+      function showLaunchUI() {
+        document.getElementById('drawLaunchArea').style.display = '';
+        document.getElementById('drawLockedMsg').style.display = 'none';
+        document.getElementById('drawResultArea').className = 'draw-result-area';
+      }
+
+      var draw = EffotbaleDraw.getOrCreateDraw();
+      if (draw) {
+        document.getElementById('drawLaunchArea').style.display = 'none';
+        document.getElementById('drawLockedMsg').style.display = 'none';
+        document.getElementById('drawResultArea').className = 'draw-result-area visible';
+        if (typeof EffotbaleDB !== 'undefined') {
+          EffotbaleDB.initMatchResults(draw);
+        }
+        EffotbaleDraw.renderDraw(draw, 'drawGroupsContainer', getLang());
+      }
+
+      document.addEventListener('languageChanged', function () {
+        var draw = EffotbaleDraw.loadDraw();
+        if (draw) {
+          var container = document.getElementById('drawGroupsContainer');
+          container.innerHTML = '';
+          EffotbaleDraw.renderDraw(draw, 'drawGroupsContainer', getLang());
+        }
+      });
+
+      document.addEventListener('effotbaleUpdate', function (e) {
+        if (e.detail && e.detail.type === 'drawReset') {
+          showLaunchUI();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
