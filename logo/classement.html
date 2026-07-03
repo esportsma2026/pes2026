@@ -173,8 +173,8 @@
             html +=
               '<div class="match-list-item card-hover-glow" tabindex="0" role="button" style="animation:slideUpBounce 0.4s ease ' + (mIdx * 0.05) + 's both;">' +
                 '<div class="match-teams">' +
-                  '<div class="match-team-row"><img src="' + (m.flagA || 'images/' + m.teamA + '.webp') + '" alt="" class="match-team-flag" loading="lazy" onerror="this.src=\'images/' + m.teamA + '.svg\'"><span class="match-team-name">' + nameA + '</span></div>' +
-                  '<div class="match-team-row"><img src="' + (m.flagB || 'images/' + m.teamB + '.webp') + '" alt="" class="match-team-flag" loading="lazy" onerror="this.src=\'images/' + m.teamB + '.svg\'"><span class="match-team-name">' + nameB + '</span></div>' +
+                  '<div class="match-team-row"><img src="' + (m.flagA || 'images/' + m.teamA + '.svg') + '" alt="" class="match-team-flag" loading="lazy" onerror="this.src=\'images/' + m.teamA + '.svg\'"><span class="match-team-name">' + nameA + '</span></div>' +
+                  '<div class="match-team-row"><img src="' + (m.flagB || 'images/' + m.teamB + '.svg') + '" alt="" class="match-team-flag" loading="lazy" onerror="this.src=\'images/' + m.teamB + '.svg\'"><span class="match-team-name">' + nameB + '</span></div>' +
                 '</div>' +
                 '<div class="match-meta">' + scoreDisplay + '<span class="match-group-label">' + (lang === 'ar' ? 'المجموعة ' : 'Group ') + key + '</span></div>' +
               '</div>';
