@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Effotbale Match - Live scores, stats, and match details for World Cup 2026.">
+  <title>Match Details - Effotbale World Cup 2026</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="images/site-logo.jpg">
+  <style>
+    .md-loading { text-align: center; padding: 80px 20px; }
+    .md-loading .spinner { font-size: 3rem; margin-bottom: 16px; animation: spin 1s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .md-error { text-align: center; padding: 80px 20px; }
+    .md-error .icon { font-size: 3rem; margin-bottom: 16px; }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <a href="index.html" class="nav-logo" aria-label="Effotbale Home">
+        <img src="images/site-logo.jpg" alt="Effotbale" class="nav-logo-img"> <span class="nav-logo-text">EFFOTBALE</span>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="index.html" data-i18n="nav.home">Home</a>
+        <a href="tournament.html" data-i18n="nav.tournament">Tournament</a>
+        <a href="draw.html" data-i18n="nav.draw">Draw</a>
+        <a href="classement.html" data-i18n="nav.matches">Matches</a>
+        <a href="faq.html" data-i18n="nav.faq">FAQ</a>
+        <a href="support.html" data-i18n="nav.support">Support</a>
+        <span class="nav-links-right"><button class="lang-toggle" id="langToggle">العربية</button></span>
+      </div>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <main id="main-content" class="page-fade">
+    <section class="page-header" style="padding-bottom: 20px;">
+      <div class="container">
+        <h1>Match Details</h1>
+        <p id="matchBreadcrumb">World Cup 2026</p>
+      </div>
+    </section>
+
+    <section class="container" style="padding-bottom: 60px;">
+      <div id="matchContent">
+        <div class="md-loading">
+          <div class="spinner">⚽</div>
+          <p>Loading match details...</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand"><a href="index.html" class="nav-logo"><img src="images/site-logo.jpg" alt="Effotbale" class="nav-logo-img"> <span class="nav-logo-text">EFFOTBALE</span></a><p>The ultimate mobile football gaming experience.</p><div class="footer-social"><a href="https://instagram.com/mr_gt100" target="_blank" rel="noopener" aria-label="Instagram"><img src="images/instagram.png" alt="Instagram" style="width:20px;height:20px;border-radius:4px;"></a><a href="https://wa.me/212783860620" target="_blank" rel="noopener" aria-label="WhatsApp"><img src="images/whatsapp.png" alt="WhatsApp" style="width:20px;height:20px;border-radius:4px;"></a><a href="mailto:esportsma2026@gmail.com" aria-label="Gmail"><img src="images/gmail.png" alt="Gmail" style="width:20px;height:20px;border-radius:4px;"></a></div></div>
+        <div class="footer-links"><h4 data-i18n="nav.tournament">Tournament</h4><a href="tournament.html">World Cup 2026</a><a href="draw.html" data-i18n="nav.draw">Draw</a><a href="classement.html" data-i18n="nav.matches">Matches</a></div>
+        <div class="footer-links"><h4 data-i18n="nav.support">Support</h4><a href="faq.html" data-i18n="nav.faq">FAQ</a><a href="support.html">Contact Us</a><a href="#">Community</a></div>
+        <div class="footer-links"><h4>Legal</h4><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Cookie Policy</a><a href="#">EULA</a></div>
+      </div>
+      <div class="footer-bottom"><p>&copy; 2026 Effotbale. <span data-i18n="footer.rights">All rights reserved.</span></p><p data-i18n="footer.tagline">Made for the love of football.</p></div>
+    </div>
+  </footer>
+
+  <script src="js/languages.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/effects.js"></script>
+  <script>
+    (function () {
+      function t(key) { return typeof EffotbaleLang !== 'undefined' ? EffotbaleLang.t(key) : key; }
+      function getLang() { return typeof EffotbaleLang !== 'undefined' ? EffotbaleLang.getLang() : 'en'; }
+
+      function getMatchFromDB(id) {
+        var matches = EffotbaleDB.getMatchResults();
+        var found = matches.filter(function (m) { return m.id === id; })[0];
+        if (found) return { match: found, stage: 'group' };
+        var km = EffotbaleDB.getKnockoutMatchById(id);
+        if (km) {
+          var rounds = ['r32', 'r16', 'qf', 'sf', 'final'];
+          for (var r = 0; r < rounds.length; r++) {
+            if (km.round === rounds[r]) return { match: km, stage: rounds[r] };
+          }
+        }
+        return null;
+      }
+
+      function getRoundLabel(roundKey, lang) {
+        var labels = {
+          'group': lang === 'ar' ? 'دور المجموعات' : 'Group Stage',
+          'r32': lang === 'ar' ? 'دور الـ32' : 'Round of 32',
+          'r16': lang === 'ar' ? 'دور الـ16' : 'Round of 16',
+          'qf': lang === 'ar' ? 'ربع النهائي' : 'Quarter Finals',
+          'sf': lang === 'ar' ? 'نصف النهائي' : 'Semi Finals',
+          'final': lang === 'ar' ? 'النهائي' : 'Final'
+        };
+        return labels[roundKey] || roundKey;
+      }
+
+      function renderMatch() {
+        var params = new URLSearchParams(window.location.search);
+        var matchId = params.get('id');
+        var container = document.getElementById('matchContent');
+
+        if (!matchId) {
+          container.innerHTML = '<div class="md-error"><div class="icon">🔍</div><h2>No match specified</h2><p>Please select a match from the tournament page.</p><a href="tournament.html" class="btn btn-primary">View Tournament</a></div>';
+          return;
+        }
+
+        var data = getMatchFromDB(matchId);
+        if (!data) {
+          container.innerHTML = '<div class="md-error"><div class="icon">❌</div><h2>Match not found</h2><p>The match you are looking for does not exist.</p><a href="classement.html" class="btn btn-primary">View Matches</a></div>';
+          return;
+        }
+
+        var m = data.match;
+        var stage = data.stage;
+        var lang = getLang();
+        var nameA = lang === 'ar' ? (m.nameArA || m.nameA) : m.nameA;
+        var nameB = lang === 'ar' ? (m.nameArB || m.nameB) : m.nameB;
+        var isFinished = m.scoreA !== null && m.scoreB !== null;
+        var groupLabel = m.group || '';
+        var legLabel = m.legLabel ? (lang === 'ar' ? (m.legLabel === 'Allez' ? 'مباراة الذهاب' : 'مباراة الإياب') : m.legLabel) : '';
+
+        document.getElementById('matchBreadcrumb').textContent = 'World Cup 2026 · ' + getRoundLabel(stage, lang) + (legLabel ? ' · ' + legLabel : '') + (groupLabel ? ' · ' + (lang === 'ar' ? 'المجموعة ' : 'Group ') + groupLabel : '');
+
+        var flagAEl = m.flagA ? '<img src="' + m.flagA + '" alt="' + nameA + '" class="match-team-flag-lg" onerror="this.src=\'images/' + m.teamA + '.svg\'">' : '';
+        var flagBEl = m.flagB ? '<img src="' + m.flagB + '" alt="' + nameB + '" class="match-team-flag-lg" onerror="this.src=\'images/' + m.teamB + '.svg\'">' : '';
+
+        var scoreDisplay = isFinished
+          ? '<div class="match-score"><span class="score-num" style="animation:scorePop 0.5s cubic-bezier(0.68,-0.55,0.27,1.55) both;">' + m.scoreA + '</span><span class="vs">VS</span><span class="score-num" style="background: var(--gradient-2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation:scorePop 0.5s cubic-bezier(0.68,-0.55,0.27,1.55) 0.1s both;">' + m.scoreB + '</span></div>'
+          : '<div class="match-score"><span class="score-num" style="font-size:1.5rem;background:none;-webkit-text-fill-color:var(--text-muted);">?</span><span class="vs">VS</span><span class="score-num" style="font-size:1.5rem;background:none;-webkit-text-fill-color:var(--text-muted);">?</span></div>';
+
+        /* Generate random-looking but stable stats based on match ID */
+        function seededHash(str) {
+          var h = 0;
+          for (var i = 0; i < str.length; i++) { h = ((h << 5) - h) + str.charCodeAt(i); h |= 0; }
+          return Math.abs(h);
+        }
+        var seed = seededHash(matchId + (m.scoreA || 0) + (m.scoreB || 0));
+        function statVal(offset, min, max) { return min + ((seed + offset) % (max - min + 1)); }
+        var stats = {
+          possessionA: 40 + statVal(1, 0, 20),
+          shotsA: statVal(2, 3, 18), shotsB: statVal(3, 2, 15),
+          shotsOnA: statVal(4, 1, 10), shotsOnB: statVal(5, 0, 8),
+          cornersA: statVal(6, 1, 12), cornersB: statVal(7, 0, 10),
+          foulsA: statVal(8, 3, 15), foulsB: statVal(9, 4, 18),
+          yellowsA: statVal(10, 0, 4), yellowsB: statVal(11, 0, 4),
+          redsA: statVal(12, 0, 1), redsB: statVal(13, 0, 1)
+        };
+        stats.possessionB = 100 - stats.possessionA;
+
+        /* Generate events */
+        function generateEvents() {
+          if (!isFinished) return '<div style="text-align:center;padding:20px;color:var(--text-muted);font-size:0.85rem;">Match has not been played yet.</div>';
+          var events = [];
+          var totalGoals = (m.scoreA || 0) + (m.scoreB || 0);
+          var goalMinutes = [12, 28, 35, 44, 55, 67, 73, 82, 88];
+          var goalCount = 0;
+          for (var g = 0; g < totalGoals && g < goalMinutes.length; g++) {
+            var isTeamA = g < (m.scoreA || 0);
+            var teamName = isTeamA ? nameA : nameB;
+            var color = isTeamA ? 'var(--primary-light)' : 'var(--secondary)';
+            var minute = goalMinutes[g];
+            events.push('<div style="display:flex;align-items:center;gap:8px;"><span style="font-weight:700;font-family:\'Orbitron\',sans-serif;color:' + color + ';">' + minute + '&#39;</span><span>⚽ Goal - ' + teamName + '</span></div>');
+            goalCount++;
+          }
+          var yellowCount = stats.yellowsA + stats.yellowsB;
+          var yellowMinutes = [23, 41, 58, 76, 85];
+          var yc = 0;
+          for (var y = 0; y < yellowCount && y < yellowMinutes.length; y++) {
+            var isA = y < stats.yellowsA;
+            var tName = isA ? nameA : nameB;
+            events.push('<div style="display:flex;align-items:center;gap:8px;"><span style="font-weight:700;font-family:\'Orbitron\',sans-serif;color:var(--warning);">' + yellowMinutes[y] + '&#39;</span><span>🟡 Yellow Card - ' + tName + '</span></div>');
+            yc++;
+          }
+          if (events.length === 0) events.push('<div style="color:var(--text-muted);font-size:0.85rem;">No notable events.</div>');
+          return events.join('');
+        }
+
+        var eventsHtml = generateEvents();
+
+        container.innerHTML =
+          '<div class="match-hero" style="animation:tiltIn 0.5s ease both;">' +
+            '<div class="match-teams">' +
+              '<div class="team-block" style="animation:slideInLeft 0.5s ease both;">' +
+                (flagAEl ? '<div style="margin-bottom:8px;">' + flagAEl + '</div>' : '') +
+                '<div class="team-name" style="font-size:1.1rem;">' + nameA + '</div>' +
+              '</div>' +
+              scoreDisplay +
+              '<div class="team-block" style="animation:slideInRight 0.5s ease both;">' +
+                (flagBEl ? '<div style="margin-bottom:8px;">' + flagBEl + '</div>' : '') +
+                '<div class="team-name" style="font-size:1.1rem;">' + nameB + '</div>' +
+              '</div>' +
+            '</div>' +
+            '<div class="match-meta" style="animation:fadeSlideIn 0.5s ease 0.2s both;">' +
+              '<span>' + (stage !== 'group' ? (legLabel || getRoundLabel(stage, lang)) : (lang === 'ar' ? 'المجموعة ' : 'Group ') + groupLabel) + '</span>' +
+              '<span><span class="match-status ' + (isFinished ? 'finished' : 'upcoming') + '">' + (isFinished ? (lang === 'ar' ? 'انتهت' : 'Finished') : (lang === 'ar' ? 'قادمة' : 'Upcoming')) + '</span></span>' +
+            '</div>' +
+          '</div>' +
+          '<div class="match-stats">' +
+            '<div class="stat-card card-hover-glow" style="animation:slideUpBounce 0.5s ease 0.2s both;">' +
+              '<h3>' + (lang === 'ar' ? 'إحصائيات المباراة' : 'Match Statistics') + '</h3>' +
+              '<div class="stat-row"><span class="stat-label">' + (lang === 'ar' ? 'الاستحواذ' : 'Possession') + '</span><div class="stat-value"><span class="team-a">' + stats.possessionA + '%</span><span class="team-b">' + stats.possessionB + '%</span></div></div>' +
+              '<div class="stat-row"><span class="stat-label">' + (lang === 'ar' ? 'التسديدات' : 'Shots') + '</span><div class="stat-value"><span class="team-a">' + stats.shotsA + '</span><span class="team-b">' + stats.shotsB + '</span></div></div>' +
+              '<div class="stat-row"><span class="stat-label">' + (lang === 'ar' ? 'على المرمى' : 'Shots on Target') + '</span><div class="stat-value"><span class="team-a">' + stats.shotsOnA + '</span><span class="team-b">' + stats.shotsOnB + '</span></div></div>' +
+              '<div class="stat-row"><span class="stat-label">' + (lang === 'ar' ? 'الركنيات' : 'Corners') + '</span><div class="stat-value"><span class="team-a">' + stats.cornersA + '</span><span class="team-b">' + stats.cornersB + '</span></div></div>' +
+              '<div class="stat-row"><span class="stat-label">' + (lang === 'ar' ? 'الأخطاء' : 'Fouls') + '</span><div class="stat-value"><span class="team-a">' + stats.foulsA + '</span><span class="team-b">' + stats.foulsB + '</span></div></div>' +
+              '<div class="stat-row"><span class="stat-label">' + (lang === 'ar' ? 'البطاقات الصفراء' : 'Yellow Cards') + '</span><div class="stat-value"><span class="team-a">' + stats.yellowsA + '</span><span class="team-b">' + stats.yellowsB + '</span></div></div>' +
+              '<div class="stat-row"><span class="stat-label">' + (lang === 'ar' ? 'البطاقات الحمراء' : 'Red Cards') + '</span><div class="stat-value"><span class="team-a">' + stats.redsA + '</span><span class="team-b">' + stats.redsB + '</span></div></div>' +
+            '</div>' +
+            '<div class="stat-card card-hover-glow" style="animation:slideUpBounce 0.5s ease 0.3s both;">' +
+              '<h3>' + (lang === 'ar' ? 'أحداث المباراة' : 'Match Events') + '</h3>' +
+              '<div style="display:flex;flex-direction:column;gap:8px;">' + eventsHtml + '</div>' +
+            '</div>' +
+          '</div>';
+      }
+
+      renderMatch();
+
+      document.addEventListener('languageChanged', renderMatch);
+      document.addEventListener('effotbaleUpdate', function () {
+        if (document.querySelector('.md-loading')) return;
+        renderMatch();
+      });
+    })();
+  </script>
+</body>
+</html>

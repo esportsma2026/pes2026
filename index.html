@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Effotbale - The ultimate mobile football game. Compete in the World Cup 2026 tournament.">
+  <title>Effotbale - World Cup 2026</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="images/site-logo.jpg">
+  <style>
+    .hp-hero {
+      min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center;
+      position: relative; overflow: hidden;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(108,60,225,0.2) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 50%, rgba(245,158,11,0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 0%, rgba(6,182,212,0.08) 0%, transparent 40%),
+        var(--bg-dark);
+    }
+    .hp-hero::before {
+      content: ''; position: absolute; inset: 0;
+      background-image:
+        radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.5), transparent),
+        radial-gradient(1px 1px at 30% 60%, rgba(255,255,255,0.3), transparent),
+        radial-gradient(1.5px 1.5px at 50% 10%, rgba(255,255,255,0.6), transparent),
+        radial-gradient(1px 1px at 70% 80%, rgba(255,255,255,0.3), transparent),
+        radial-gradient(1px 1px at 90% 40%, rgba(255,255,255,0.4), transparent),
+        radial-gradient(1.5px 1.5px at 15% 85%, rgba(255,255,255,0.2), transparent),
+        radial-gradient(1px 1px at 45% 45%, rgba(255,255,255,0.3), transparent),
+        radial-gradient(1px 1px at 80% 15%, rgba(255,255,255,0.4), transparent),
+        radial-gradient(1.5px 1.5px at 60% 90%, rgba(255,255,255,0.2), transparent),
+        radial-gradient(1px 1px at 25% 35%, rgba(255,255,255,0.3), transparent);
+      animation: bgPan 30s linear infinite;
+      pointer-events: none; z-index: 1;
+    }
+    .hp-hero .container { position: relative; z-index: 3; }
+    .hp-hero h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(2.5rem, 8vw, 5.5rem); font-weight: 900; line-height: 1.1; margin-bottom: 16px;
+      background: linear-gradient(135deg, #fff 0%, var(--primary-light) 30%, var(--secondary) 60%, #fff 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      animation: shimmerText 4s linear infinite;
+    }
+    .hp-hero .hero-subtitle {
+      font-size: clamp(1rem, 2.5vw, 1.3rem); color: var(--text-secondary); max-width: 600px; margin: 0 auto 12px;
+    }
+    .hp-hero .hero-tagline {
+      font-size: clamp(0.7rem, 1.5vw, 0.85rem);
+      color: var(--text-muted);
+      margin-bottom: 32px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-family: 'Orbitron', sans-serif;
+    }
+    .hp-hero .glow-orb { position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; z-index: 1; }
+    .hp-hero .glow-orb.g1 { width: 500px; height: 500px; background: var(--primary); top: -150px; left: -150px; opacity: 0.25; animation: float 8s ease-in-out infinite; }
+    .hp-hero .glow-orb.g2 { width: 350px; height: 350px; background: var(--secondary); bottom: -100px; right: -100px; opacity: 0.2; animation: float 10s ease-in-out infinite reverse; }
+    .hp-hero .glow-orb.g3 { width: 200px; height: 200px; background: var(--accent); top: 50%; left: 50%; transform: translate(-50%,-50%); opacity: 0.1; animation: float 6s ease-in-out infinite; }
+    .hp-hero .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(108,60,225,0.15); border: 1px solid rgba(108,60,225,0.3);
+      padding: 6px 20px; border-radius: 50px;
+      font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px;
+      color: var(--primary-light); margin-bottom: 24px;
+      animation: glowPulse 3s ease-in-out infinite;
+    }
+    .hero-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .hero-buttons .btn { position: relative; overflow: hidden; }
+    .hero-buttons .btn::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      transform: translateX(-100%);
+    }
+    .hero-buttons .btn:hover::after { transform: translateX(100%); transition: transform 0.6s ease; }
+    .hot-preview {
+      background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg);
+      padding: 40px; margin: -60px auto 60px; max-width: 900px; position: relative; z-index: 4;
+      animation: fadeSlideIn 0.6s ease 0.3s both;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.4), 0 0 60px rgba(108,60,225,0.05);
+    }
+    .hot-preview .hp-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--gradient-fire); color: white; padding: 4px 16px;
+      border-radius: 50px; font-size: 0.7rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px;
+    }
+    .hot-preview .hp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .hot-preview .hp-item {
+      background: var(--bg-dark); border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm); padding: 20px;
+      transition: all 0.3s ease; position: relative; overflow: hidden;
+    }
+    .hot-preview .hp-item::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--primary), transparent);
+      transform: translateX(-100%); transition: transform 0.5s ease;
+    }
+    .hot-preview .hp-item:hover::before { transform: translateX(100%); }
+    .hot-preview .hp-item:hover { border-color: var(--primary); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(108,60,225,0.1); }
+    .hot-preview .hp-item h4 { font-family: 'Orbitron', sans-serif; font-size: 0.82rem; margin-bottom: 6px; color: var(--text-primary); }
+    .hot-preview .hp-item p { color: var(--text-secondary); font-size: 0.82rem; margin: 0; }
+    .hot-preview .hp-item .hp-stat { color: var(--secondary); font-weight: 700; font-family: 'Orbitron', sans-serif; font-size: 1.2rem; }
+    .hot-preview .hp-icon { font-size: 1.5rem; margin-bottom: 8px; display: block; }
+    .hp-features-alt {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 32px;
+    }
+    .hp-features-alt .hp-fa-item {
+      background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md);
+      padding: 28px 20px; text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+      position: relative; overflow: hidden;
+    }
+    .hp-features-alt .hp-fa-item::after {
+      content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+      background: radial-gradient(circle, rgba(108,60,225,0.05) 0%, transparent 60%);
+      opacity: 0; transition: opacity 0.3s ease;
+    }
+    .hp-features-alt .hp-fa-item:hover::after { opacity: 1; }
+    .hp-features-alt .hp-fa-item:hover { border-color: var(--primary); transform: translateY(-6px); box-shadow: 0 12px 40px rgba(108,60,225,0.15); }
+    .hp-features-alt .hp-fa-icon { font-size: 2rem; margin-bottom: 12px; display: block; position: relative; z-index: 1; }
+    .hp-features-alt .hp-fa-item h4 { font-family: 'Orbitron', sans-serif; font-size: 0.85rem; margin-bottom: 6px; position: relative; z-index: 1; }
+    .hp-features-alt .hp-fa-item p { color: var(--text-secondary); font-size: 0.82rem; margin: 0; position: relative; z-index: 1; }
+    .cta-section { position: relative; overflow: hidden; }
+    .cta-section::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at center, rgba(108,60,225,0.1) 0%, transparent 60%);
+      animation: glowPulse 4s ease-in-out infinite;
+    }
+    .cta-section .container { position: relative; z-index: 1; }
+    @media (max-width: 768px) {
+      .hot-preview .hp-grid, .hp-features-alt { grid-template-columns: 1fr; }
+      .hot-preview { padding: 24px; margin-top: -40px; }
+      .hp-hero .glow-orb.g1 { width: 300px; height: 300px; }
+      .hp-hero .glow-orb.g2 { width: 200px; height: 200px; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <a href="index.html" class="nav-logo" aria-label="Effotbale Home">
+        <img src="images/site-logo.jpg" alt="Effotbale" class="nav-logo-img">
+        <span class="nav-logo-text">EFFOTBALE</span>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="index.html" class="active" data-i18n="nav.home">Home</a>
+        <a href="tournament.html" data-i18n="nav.tournament">Tournament</a>
+        <a href="draw.html" data-i18n="nav.draw">Draw</a>
+        <a href="classement.html" data-i18n="nav.matches">Matches</a>
+        <a href="faq.html" data-i18n="nav.faq">FAQ</a>
+        <a href="support.html" data-i18n="nav.support">Support</a>
+        <span class="nav-links-right">
+          <button class="lang-toggle" id="langToggle">العربية</button>
+        </span>
+      </div>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <main id="main-content" class="page-fade">
+    <section class="hp-hero" aria-label="Hero section">
+      <div class="glow-orb g1"></div>
+      <div class="glow-orb g2"></div>
+      <div class="glow-orb g3"></div>
+      <div class="container">
+        <div class="hero-badge anim-scale-in">🔥 WORLD CUP 2026 · 48 TEAMS</div>
+        <h1 class="anim-tilt-in">EFFOTBALE</h1>
+        <p class="hero-subtitle anim-slide-up stagger-1" data-i18n="tournament.subtitle">48 teams, 12 groups, one champion.</p>
+        <p class="hero-tagline anim-fade-slide stagger-2">⚔️ The Ultimate Mobile Football Championship ⚔️</p>
+        <div class="hero-buttons anim-slide-up stagger-3">
+          <a href="tournament.html" class="btn btn-primary">🏆 <span data-i18n="nav.tournament">View Tournament</span></a>
+          <a href="draw.html" class="btn btn-secondary">🎯 <span data-i18n="nav.draw">View Draw</span></a>
+          <a href="classement.html" class="btn btn-secondary" style="background:transparent;border-color:var(--border-color);">📋 <span data-i18n="nav.matches">Matches</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="container hot-preview reveal" aria-label="Hot preview" id="hotPreviewSection">
+      <div class="hp-badge" data-i18n="hotPreview">🔥 HOT PREVIEW</div>
+        <div class="hp-grid reveal-stagger" id="hotPreviewGrid">
+        <div class="hp-item anim-slide-up card-hover-glow">
+          <span class="hp-icon">🏆</span>
+          <h4 data-i18n="hpTournament">Tournament Stage</h4>
+          <p><span data-i18n="hpGroupProgress">Group stage in progress</span> — <span class="hp-stat stat-number" id="hpGroupProgress">0/72</span> <span data-i18n="hpMatchesPlayed">matches played</span></p>
+        </div>
+        <div class="hp-item anim-slide-up stagger-1 card-hover-glow">
+          <span class="hp-icon">📊</span>
+          <h4 data-i18n="hpGroupsDone">Groups Completed</h4>
+          <p><span class="hp-stat" id="hpFinishedGroups" style="font-size:1.5rem;">0</span> <span data-i18n="hpGroupsOf">of 12 groups</span></p>
+        </div>
+        <div class="hp-item anim-slide-up stagger-2 card-hover-glow">
+          <span class="hp-icon">⚽</span>
+          <h4 data-i18n="hpKnockout">Knockout Stage</h4>
+          <p><span data-i18n="hpKnockoutRound">Current round</span>: <span class="hp-stat" id="hpKnockoutRound">Not started</span></p>
+        </div>
+        <div class="hp-item anim-slide-up stagger-3 card-hover-glow">
+          <span class="hp-icon">🌍</span>
+          <h4 data-i18n="hpTeamsQualified">Teams Qualified</h4>
+          <p><span class="hp-stat" id="hpQualifiedTeams" style="font-size:1.5rem;">0</span> <span data-i18n="hpTeamsQualifiedDesc">qualified</span></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="features" aria-label="Game features">
+      <div class="container">
+        <h2 class="section-title" data-i18n="features.title">Why Play Effotbale?</h2>
+        <p class="section-subtitle" data-i18n="features.subtitle">Experience football like never before with features designed for champions.</p>
+        <div class="hp-features-alt">
+          <div class="hp-fa-item anim-tilt-in card-hover-glow"><div class="hp-fa-icon">🏆</div><h4 data-i18n="tournament.title">World Cup 2026</h4><p>Compete in the biggest mobile football tournament ever. 48 teams, 12 groups, one champion.</p></div>
+          <div class="hp-fa-item anim-tilt-in stagger-1 card-hover-glow"><div class="hp-fa-icon">📊</div><h4>Live Standings</h4><p>Track your group standings with dynamic ranking systems. Every match changes the table.</p></div>
+          <div class="hp-fa-item anim-tilt-in stagger-2 card-hover-glow"><div class="hp-fa-icon">🎮</div><h4>Immersive Gameplay</h4><p>Stunning graphics, intuitive controls, and realistic physics. Feel every pass, tackle, and goal.</p></div>
+          <div class="hp-fa-item anim-tilt-in stagger-3 card-hover-glow"><div class="hp-fa-icon">👥</div><h4>Build Your Team</h4><p>Collect and upgrade players, customize formations, and develop your ultimate squad.</p></div>
+          <div class="hp-fa-item anim-tilt-in stagger-4 card-hover-glow"><div class="hp-fa-icon">🎯</div><h4>Fair Matchmaking</h4><p>Skill-based matchmaking ensures fair and competitive matches at all levels.</p></div>
+          <div class="hp-fa-item anim-tilt-in stagger-5 card-hover-glow"><div class="hp-fa-icon">🏅</div><h4>Exclusive Rewards</h4><p>Earn unique rewards, badges, and special items as you progress through the tournament.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section reveal" aria-label="Call to action">
+      <div class="container">
+        <h2 class="anim-fade-slide" data-i18n="cta.title">Ready to Compete?</h2>
+        <p class="anim-fade-slide stagger-1" data-i18n="cta.desc">Join thousands of players in the World Cup 2026 tournament.</p>
+        <a href="tournament.html" class="btn btn-primary anim-pulse-glow" style="animation:scalePulse 2s ease-in-out infinite;" data-i18n="nav.tournament">🏆 View Tournament</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="nav-logo"><img src="images/site-logo.jpg" alt="Effotbale" class="nav-logo-img"> <span class="nav-logo-text">EFFOTBALE</span></a>
+          <p>The ultimate mobile football gaming experience.</p>
+          <div class="footer-social">
+            <a href="https://instagram.com/mr_gt100" target="_blank" rel="noopener" aria-label="Instagram"><img src="images/instagram.png" alt="Instagram" style="width:20px;height:20px;border-radius:4px;"></a>
+            <a href="https://wa.me/212783860620" target="_blank" rel="noopener" aria-label="WhatsApp"><img src="images/whatsapp.png" alt="WhatsApp" style="width:20px;height:20px;border-radius:4px;"></a>
+            <a href="mailto:esportsma2026@gmail.com" aria-label="Gmail"><img src="images/gmail.png" alt="Gmail" style="width:20px;height:20px;border-radius:4px;"></a>
+          </div>
+        </div>
+        <div class="footer-links">
+          <h4 data-i18n="nav.tournament">Tournament</h4>
+          <a href="tournament.html">World Cup 2026</a>
+          <a href="draw.html" data-i18n="nav.draw">Draw</a>
+          <a href="classement.html" data-i18n="nav.matches">Matches</a>
+        </div>
+        <div class="footer-links">
+          <h4 data-i18n="nav.support">Support</h4>
+          <a href="faq.html" data-i18n="nav.faq">FAQ</a>
+          <a href="support.html">Contact Us</a>
+          <a href="#">Community</a>
+        </div>
+        <div class="footer-links">
+          <h4>Legal</h4>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Cookie Policy</a>
+          <a href="#">EULA</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Effotbale. <span data-i18n="footer.rights">All rights reserved.</span></p>
+        <p data-i18n="footer.tagline">Made for the love of football.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/languages.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/effects.js"></script>
+  <script>
+    (function () {
+      function t(key) {
+        return typeof EffotbaleLang !== 'undefined' ? EffotbaleLang.t(key) : key;
+      }
+
+      function updateHotPreview() {
+        var matches = EffotbaleDB.getMatchResults();
+        var draw = EffotbaleDB.getDraw();
+        var ko = EffotbaleDB.getKnockoutData();
+        var lang = typeof EffotbaleLang !== 'undefined' ? EffotbaleLang.getLang() : 'en';
+
+        var totalPlayed = matches.filter(function (m) { return m.status === 'finished'; }).length;
+        document.getElementById('hpGroupProgress').textContent = totalPlayed + '/72';
+
+        if (draw) {
+          var groupKeys = Object.keys(draw).sort();
+          var finishedGroups = 0;
+          groupKeys.forEach(function (key) {
+            var gMatches = matches.filter(function (m) { return m.group === key; });
+            if (gMatches.length > 0 && gMatches.every(function (m) { return m.status === 'finished'; })) {
+              finishedGroups++;
+            }
+          });
+          document.getElementById('hpFinishedGroups').textContent = finishedGroups;
+          if (finishedGroups === 12) {
+            ko = EffotbaleDB.computeKnockoutProgression();
+          }
+        }
+
+        var roundMap = {
+          r32: lang === 'ar' ? 'دور الـ32' : 'Round of 32',
+          r16: lang === 'ar' ? 'دور الـ16' : 'Round of 16',
+          qf: lang === 'ar' ? 'ربع النهائي' : 'Quarter Finals',
+          sf: lang === 'ar' ? 'نصف النهائي' : 'Semi Finals',
+          final: lang === 'ar' ? 'النهائي' : 'Final'
+        };
+        var currentRound = t('hpNotStarted');
+        var qualified = 0;
+        var roundTeamCount = { r32: 32, r16: 16, qf: 8, sf: 4, final: 2 };
+        if (ko) {
+          var order = ['r32', 'r16', 'qf', 'sf', 'final'];
+          for (var i = 0; i < order.length; i++) {
+            if (ko[order[i]] && ko[order[i]].length > 0) {
+              currentRound = roundMap[order[i]];
+              qualified = roundTeamCount[order[i]] || (ko[order[i]].length * 2);
+              var allDone = ko[order[i]].every(function (m) { return m.status === 'finished'; });
+              if (allDone && i < order.length - 1 && ko[order[i + 1]]) { continue; }
+              break;
+            }
+          }
+        }
+        document.getElementById('hpKnockoutRound').textContent = currentRound;
+
+        var qt = EffotbaleDB.getQualifiedTeams();
+        document.getElementById('hpQualifiedTeams').textContent = qt ? qt.totalQualified : 0;
+      }
+
+      updateHotPreview();
+      setInterval(updateHotPreview, 5000);
+      document.addEventListener('languageChanged', updateHotPreview);
+      document.addEventListener('effotbaleUpdate', updateHotPreview);
+      window.addEventListener('storage', function (e) {
+        if (e.key && e.key.indexOf('effotbale_') === 0) updateHotPreview();
+      });
+    })();
+  </script>
+</body>
+</html>
