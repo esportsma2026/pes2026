@@ -168,7 +168,6 @@ var EffotbaleDB = (function () {
       var gs = standings[key] || [];
       for (var i = 0; i < Math.min(3, gs.length); i++) {
         var e = gs[i]; e._group = key;
-        e._posKey = key + (i + 1);
         var allFinished = matchResults.filter(function (m) { return m.group === key; }).every(function (m) { return m.status === 'finished'; });
         if (allFinished) {
           if (i === 0) first.push(e);
@@ -187,34 +186,9 @@ var EffotbaleDB = (function () {
       first: first,
       second: second,
       bestThird: bestThird,
-      thirdRanked: third,
       allComplete: allGroupComplete,
       totalQualified: first.length + second.length + bestThird.length
     };
-  }
-
-  function getBestThirdRanking() {
-    var draw = getDraw();
-    if (!draw) return [];
-    var matchResults = getMatchResults();
-    var standings = computeStandings(draw, matchResults);
-    var groupKeys = Object.keys(draw).sort();
-    var third = [];
-    groupKeys.forEach(function (key) {
-      var gs = standings[key] || [];
-      if (gs.length >= 3) {
-        var e = gs[2]; e._group = key;
-        e._posKey = key + '3';
-        var groupDone = matchResults.filter(function (m) { return m.group === key; }).every(function (m) { return m.status === 'finished'; });
-        if (groupDone) third.push(e);
-      }
-    });
-    third.sort(function (a, b) {
-      if (b.pts !== a.pts) return b.pts - a.pts;
-      if (b.gd !== a.gd) return b.gd - a.gd;
-      return b.gf - a.gf;
-    });
-    return third;
   }
 
   function resetMatchResults() {
@@ -433,36 +407,6 @@ var EffotbaleDB = (function () {
   var ROUND_ORDER = ['r32', 'r16', 'qf', 'sf', 'final'];
   var ROUND_MATCHES = { r32: 16, r16: 8, qf: 4, sf: 2, final: 1 };
 
-  function getTieLoser(legs) {
-    if (!legs || legs.length < 2) return null;
-    var leg1 = legs[0], leg2 = legs[1];
-    if (leg1.scoreA === null || leg1.scoreB === null || leg2.scoreA === null || leg2.scoreB === null) return null;
-    if (leg1.status !== 'finished' || leg2.status !== 'finished') return null;
-    var totalA = leg1.scoreA + leg2.scoreB;
-    var totalB = leg1.scoreB + leg2.scoreA;
-    if (totalA > totalB) return { id: leg1.teamB, name: leg1.nameB, nameAr: leg1.nameArB, flag: leg1.flagB };
-    if (totalB > totalA) return { id: leg1.teamA, name: leg1.nameA, nameAr: leg1.nameArA, flag: leg1.flagA };
-    return { id: leg1.teamB, name: leg1.nameB, nameAr: leg1.nameArB, flag: leg1.flagB };
-  }
-
-  function buildThirdPlaceMatch(sfMatches) {
-    var ties = {};
-    sfMatches.forEach(function (m) {
-      var pid = m.parentId || m.id;
-      if (!ties[pid]) ties[pid] = [];
-      ties[pid].push(m);
-    });
-    var tieList = Object.keys(ties).sort().map(function (k) { return ties[k]; });
-    if (tieList.length < 2) return [];
-    var tie1 = tieList[0], tie2 = tieList[1];
-    var l1 = getTieLoser(tie1), l2 = getTieLoser(tie2);
-    if (!l1 || !l2) return [];
-    return [
-      { id: 'ko_third_1_leg1', parentId: 'ko_third_1', round: 'third', matchIndex: 0, leg: 1, legLabel: 'Allez', teamA: l1.id, teamB: l2.id, nameA: l1.name, nameB: l2.name, nameArA: l1.nameAr, nameArB: l2.nameAr, flagA: l1.flag, flagB: l2.flag, scoreA: null, scoreB: null, status: 'upcoming' },
-      { id: 'ko_third_1_leg2', parentId: 'ko_third_1', round: 'third', matchIndex: 0, leg: 2, legLabel: 'Retour', teamA: l2.id, teamB: l1.id, nameA: l2.name, nameB: l1.name, nameArA: l2.nameAr, nameArB: l1.nameAr, flagA: l2.flag, flagB: l1.flag, scoreA: null, scoreB: null, status: 'upcoming' }
-    ];
-  }
-
   function computeKnockoutProgression() {
     var draw = getDraw();
     if (!draw) return null;
@@ -486,13 +430,6 @@ var EffotbaleDB = (function () {
           ko[nxt] = advanceWinners(ko[cur], ROUND_MATCHES[nxt], nxt);
           saveKnockoutData(ko);
         }
-      }
-    }
-
-    if (ko.sf && ko.sf.length > 0 && allFinished(ko.sf)) {
-      if (!ko.third || ko.third.length === 0) {
-        ko.third = buildThirdPlaceMatch(ko.sf);
-        saveKnockoutData(ko);
       }
     }
 
@@ -602,7 +539,7 @@ var EffotbaleDB = (function () {
     getDraw: getDraw, saveDraw: saveDraw,
     getMatchResults: getMatchResults, saveMatchResults: saveMatchResults,
     initMatchResults: initMatchResults, updateAllMatchResults: updateAllMatchResults,
-    setMatchStatus: setMatchStatus,     getQualifiedTeams: getQualifiedTeams, getBestThirdRanking: getBestThirdRanking,
+    setMatchStatus: setMatchStatus, getQualifiedTeams: getQualifiedTeams,
     resetMatchResults: resetMatchResults, getGroupMatches: getGroupMatches,
     getMatchById: getMatchById,
     computeStandings: computeStandings,

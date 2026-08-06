@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
   "$schema": "https://opencode.ai/config.json",
   "mcp": {
@@ -11,3 +12,18 @@
     }
   }
 }
+=======
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "playwright": {
+      "type": "local",
+      "command": [
+        "npx",
+        "@playwright/mcp@latest"
+      ],
+      "enabled": true
+    }
+  }
+}
+>>>>>>> ddf3039cc57dc6b2a7df7f2c0ca8d56d5ecb950a

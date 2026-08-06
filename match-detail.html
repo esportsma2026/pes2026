@@ -39,8 +39,8 @@
   <main id="main-content" class="page-fade">
     <section class="page-header" style="padding-bottom: 20px;">
       <div class="container">
-        <h1>Match Details</h1>
-        <p id="matchBreadcrumb">World Cup 2026</p>
+        <h1 data-i18n="mdTitle">Match Details</h1>
+        <p id="matchBreadcrumb" data-i18n="wc2026">World Cup 2026</p>
       </div>
     </section>
 
@@ -48,7 +48,7 @@
       <div id="matchContent">
         <div class="md-loading">
           <div class="spinner">⚽</div>
-          <p>Loading match details...</p>
+          <p data-i18n="mdLoading">Loading match details...</p>
         </div>
       </div>
     </section>
@@ -57,10 +57,10 @@
   <footer class="footer" role="contentinfo">
     <div class="container">
       <div class="footer-grid">
-        <div class="footer-brand"><a href="index.html" class="nav-logo"><img src="images/site-logo.jpg" alt="Effotbale" class="nav-logo-img"> <span class="nav-logo-text">EFFOTBALE</span></a><p>The ultimate mobile football gaming experience.</p><div class="footer-social"><a href="https://instagram.com/mr_gt100" target="_blank" rel="noopener" aria-label="Instagram"><img src="images/instagram.png" alt="Instagram" style="width:20px;height:20px;border-radius:4px;"></a><a href="https://wa.me/212783860620" target="_blank" rel="noopener" aria-label="WhatsApp"><img src="images/whatsapp.png" alt="WhatsApp" style="width:20px;height:20px;border-radius:4px;"></a><a href="mailto:esportsma2026@gmail.com" aria-label="Gmail"><img src="images/gmail.png" alt="Gmail" style="width:20px;height:20px;border-radius:4px;"></a></div></div>
-        <div class="footer-links"><h4 data-i18n="nav.tournament">Tournament</h4><a href="tournament.html">World Cup 2026</a><a href="draw.html" data-i18n="nav.draw">Draw</a><a href="classement.html" data-i18n="nav.matches">Matches</a></div>
-        <div class="footer-links"><h4 data-i18n="nav.support">Support</h4><a href="faq.html" data-i18n="nav.faq">FAQ</a><a href="support.html">Contact Us</a><a href="#">Community</a></div>
-        <div class="footer-links"><h4>Legal</h4><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Cookie Policy</a><a href="#">EULA</a></div>
+        <div class="footer-brand"><a href="index.html" class="nav-logo"><img src="images/site-logo.jpg" alt="Effotbale" class="nav-logo-img"> <span class="nav-logo-text">EFFOTBALE</span></a><p data-i18n="footerBrand">The ultimate mobile football gaming experience.</p><div class="footer-social"><a href="https://instagram.com/mr_gt100" target="_blank" rel="noopener" aria-label="Instagram"><img src="images/instagram.png" alt="Instagram" style="width:20px;height:20px;border-radius:4px;"></a><a href="https://wa.me/212783860620" target="_blank" rel="noopener" aria-label="WhatsApp"><img src="images/whatsapp.png" alt="WhatsApp" style="width:20px;height:20px;border-radius:4px;"></a><a href="mailto:esportsma2026@gmail.com" aria-label="Gmail"><img src="images/gmail.png" alt="Gmail" style="width:20px;height:20px;border-radius:4px;"></a></div></div>
+        <div class="footer-links"><h4 data-i18n="nav.tournament">Tournament</h4><a href="tournament.html" data-i18n="wc2026">World Cup 2026</a><a href="draw.html" data-i18n="nav.draw">Draw</a><a href="classement.html" data-i18n="nav.matches">Matches</a></div>
+        <div class="footer-links"><h4 data-i18n="nav.support">Support</h4><a href="faq.html" data-i18n="nav.faq">FAQ</a><a href="support.html" data-i18n="contactUs">Contact Us</a><a href="#" data-i18n="community">Community</a></div>
+        <div class="footer-links"><h4 data-i18n="legal">Legal</h4><a href="#" data-i18n="privacy">Privacy Policy</a><a href="#" data-i18n="terms">Terms of Service</a><a href="#" data-i18n="cookie">Cookie Policy</a><a href="#" data-i18n="eula">EULA</a></div>
       </div>
       <div class="footer-bottom"><p>&copy; 2026 Effotbale. <span data-i18n="footer.rights">All rights reserved.</span></p><p data-i18n="footer.tagline">Made for the love of football.</p></div>
     </div>
@@ -107,13 +107,13 @@
         var container = document.getElementById('matchContent');
 
         if (!matchId) {
-          container.innerHTML = '<div class="md-error"><div class="icon">🔍</div><h2>No match specified</h2><p>Please select a match from the tournament page.</p><a href="tournament.html" class="btn btn-primary">View Tournament</a></div>';
+          container.innerHTML = '<div class="md-error"><div class="icon">🔍</div><h2>' + t('mdNoMatch') + '</h2><p>' + t('mdNoMatchHint') + '</p><a href="tournament.html" class="btn btn-primary">' + t('mdViewTournament') + '</a></div>';
           return;
         }
 
         var data = getMatchFromDB(matchId);
         if (!data) {
-          container.innerHTML = '<div class="md-error"><div class="icon">❌</div><h2>Match not found</h2><p>The match you are looking for does not exist.</p><a href="classement.html" class="btn btn-primary">View Matches</a></div>';
+          container.innerHTML = '<div class="md-error"><div class="icon">❌</div><h2>' + t('mdNotFound') + '</h2><p>' + t('mdNotFoundHint') + '</p><a href="classement.html" class="btn btn-primary">' + t('mdViewMatches') + '</a></div>';
           return;
         }
 
@@ -126,7 +126,7 @@
         var groupLabel = m.group || '';
         var legLabel = m.legLabel ? (lang === 'ar' ? (m.legLabel === 'Allez' ? 'مباراة الذهاب' : 'مباراة الإياب') : m.legLabel) : '';
 
-        document.getElementById('matchBreadcrumb').textContent = 'World Cup 2026 · ' + getRoundLabel(stage, lang) + (legLabel ? ' · ' + legLabel : '') + (groupLabel ? ' · ' + (lang === 'ar' ? 'المجموعة ' : 'Group ') + groupLabel : '');
+        document.getElementById('matchBreadcrumb').textContent = t('wc2026') + ' · ' + getRoundLabel(stage, lang) + (legLabel ? ' · ' + legLabel : '') + (groupLabel ? ' · ' + (lang === 'ar' ? 'المجموعة ' : 'Group ') + groupLabel : '');
 
         var flagAEl = m.flagA ? '<img src="' + m.flagA + '" alt="' + nameA + '" class="match-team-flag-lg" onerror="this.src=\'images/' + m.teamA + '.svg\'">' : '';
         var flagBEl = m.flagB ? '<img src="' + m.flagB + '" alt="' + nameB + '" class="match-team-flag-lg" onerror="this.src=\'images/' + m.teamB + '.svg\'">' : '';
@@ -156,7 +156,7 @@
 
         /* Generate events */
         function generateEvents() {
-          if (!isFinished) return '<div style="text-align:center;padding:20px;color:var(--text-muted);font-size:0.85rem;">Match has not been played yet.</div>';
+          if (!isFinished) return '<div style="text-align:center;padding:20px;color:var(--text-muted);font-size:0.85rem;">' + t('mdNotPlayed') + '</div>';
           var events = [];
           var totalGoals = (m.scoreA || 0) + (m.scoreB || 0);
           var goalMinutes = [12, 28, 35, 44, 55, 67, 73, 82, 88];
@@ -166,7 +166,7 @@
             var teamName = isTeamA ? nameA : nameB;
             var color = isTeamA ? 'var(--primary-light)' : 'var(--secondary)';
             var minute = goalMinutes[g];
-            events.push('<div style="display:flex;align-items:center;gap:8px;"><span style="font-weight:700;font-family:\'Orbitron\',sans-serif;color:' + color + ';">' + minute + '&#39;</span><span>⚽ Goal - ' + teamName + '</span></div>');
+            events.push('<div style="display:flex;align-items:center;gap:8px;"><span style="font-weight:700;font-family:\'Orbitron\',sans-serif;color:' + color + ';">' + minute + '&#39;</span><span>⚽ ' + t('mdGoalEvent') + ' - ' + teamName + '</span></div>');
             goalCount++;
           }
           var yellowCount = stats.yellowsA + stats.yellowsB;
@@ -175,10 +175,10 @@
           for (var y = 0; y < yellowCount && y < yellowMinutes.length; y++) {
             var isA = y < stats.yellowsA;
             var tName = isA ? nameA : nameB;
-            events.push('<div style="display:flex;align-items:center;gap:8px;"><span style="font-weight:700;font-family:\'Orbitron\',sans-serif;color:var(--warning);">' + yellowMinutes[y] + '&#39;</span><span>🟡 Yellow Card - ' + tName + '</span></div>');
+            events.push('<div style="display:flex;align-items:center;gap:8px;"><span style="font-weight:700;font-family:\'Orbitron\',sans-serif;color:var(--warning);">' + yellowMinutes[y] + '&#39;</span><span>🟡 ' + t('mdYellowEvent') + ' - ' + tName + '</span></div>');
             yc++;
           }
-          if (events.length === 0) events.push('<div style="color:var(--text-muted);font-size:0.85rem;">No notable events.</div>');
+          if (events.length === 0) events.push('<div style="color:var(--text-muted);font-size:0.85rem;">' + t('mdNoEvents') + '</div>');
           return events.join('');
         }
 

@@ -155,40 +155,78 @@
       transform: translateY(-2px);
       box-shadow: 0 8px 32px rgba(108,60,225,0.5);
     }
-    .third-ranking-table { width:100%; border-collapse: collapse; margin-top: 8px; }
-    .third-ranking-table th { font-family:'Orbitron',sans-serif; font-size:0.6rem; text-transform:uppercase; letter-spacing:1px; color:var(--text-muted); padding:8px 6px; text-align:left; border-bottom:1px solid var(--border-color); }
-    .third-ranking-table td { padding:8px 6px; font-size:0.8rem; border-bottom:1px solid rgba(42,42,74,0.2); }
-    .third-ranking-table tr { transition: background 0.2s ease; }
-    .third-ranking-table tr:hover { background: rgba(108,60,225,0.03); }
-    .third-ranking-table .rank-cell { width:28px; text-align:center; font-weight:700; font-family:'Orbitron',sans-serif; }
-    .third-ranking-table .third-rank-1 .rank-cell,
-    .third-ranking-table .third-rank-2 .rank-cell,
-    .third-ranking-table .third-rank-3 .rank-cell,
-    .third-ranking-table .third-rank-4 .rank-cell,
-    .third-ranking-table .third-rank-5 .rank-cell,
-    .third-ranking-table .third-rank-6 .rank-cell,
-    .third-ranking-table .third-rank-7 .rank-cell,
-    .third-ranking-table .third-rank-8 .rank-cell { color: var(--success); text-shadow: 0 0 10px rgba(16,185,129,0.5); }
-    .third-ranking-table .third-rank-1 .rank-cell::after,
-    .third-ranking-table .third-rank-2 .rank-cell::after,
-    .third-ranking-table .third-rank-3 .rank-cell::after,
-    .third-ranking-table .third-rank-4 .rank-cell::after,
-    .third-ranking-table .third-rank-5 .rank-cell::after,
-    .third-ranking-table .third-rank-6 .rank-cell::after,
-    .third-ranking-table .third-rank-7 .rank-cell::after,
-    .third-ranking-table .third-rank-8 .rank-cell::after { content:' ✓'; font-size:0.65rem; }
-    .third-ranking-table .stat-positive { color: var(--success); font-weight:600; }
-    .third-ranking-table .stat-negative { color: var(--danger); font-weight:600; }
-    .third-ranking-table .stat-neutral { color: var(--text-muted); }
-    .third-place-grid { display: grid; gap: 12px; }
-    .third-place-group { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); overflow: hidden; animation: fadeSlideIn 0.5s ease both; }
-    .third-place-group h3 { font-family:'Orbitron',sans-serif; font-size:0.8rem; padding:12px 16px; margin:0; border-bottom:1px solid var(--border-color); text-transform:uppercase; letter-spacing:1px; }
-    .kb-round-placeholder .kb-match { opacity: 0.6; }
-    .kb-round-placeholder .kb-match .kb-team .kb-name { font-family:'Orbitron',sans-serif; letter-spacing:1px; font-size:0.75rem; }
-    @media (max-width: 900px) { .knockout-bracket { grid-template-columns: repeat(6, 140px); } }
+    @media (max-width: 900px) { .knockout-bracket { grid-template-columns: repeat(5, 155px); } }
     @media (max-width: 600px) { .knockout-bracket { padding: 8px 0; } .kb-match { padding: 7px 8px; } }
     @media (max-width: 480px) { .knockout-bracket .kb-round { min-width: 140px; } .kb-match { padding: 5px 6px; } .kb-match .kb-team { font-size: 0.55rem; } .kb-match .kb-score { font-size: 0.6rem; min-width: 14px; } .kb-match .kb-team .kb-flag { width: 10px; height: 7px; } .group-to-ko-link { font-size: 0.75rem; padding: 10px 20px; } }
     @media (max-width: 360px) { .knockout-bracket .kb-round { min-width: 110px; } .kb-match { padding: 4px 4px; } .kb-match .kb-team { font-size: 0.45rem; } .kb-match .kb-score { font-size: 0.5rem; min-width: 10px; } .kb-match .kb-team .kb-flag { width: 8px; height: 6px; } .group-to-ko-link { font-size: 0.65rem; padding: 8px 14px; } }
+
+    /* =========================================
+     * GROUP STAGE TABLES — rewrite (mobile safe)
+     * Table stays a real table on every screen.
+     * If it is too wide, it scrolls sideways,
+     * keeping the rank + team columns pinned.
+     * ========================================= */
+    html, body { overflow-x: hidden; }
+    .group-stage-section .group-card .group-table-scroll {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      background: var(--bg-dark);
+      scrollbar-width: thin;
+      scrollbar-color: var(--primary) transparent;
+    }
+    .group-stage-section .group-card .group-table-scroll::-webkit-scrollbar { height: 6px; }
+    .group-stage-section .group-card .group-table-scroll::-webkit-scrollbar-track { background: transparent; }
+    .group-stage-section .group-card .group-table-scroll::-webkit-scrollbar-thumb { background: linear-gradient(90deg, var(--primary), var(--secondary)); border-radius: 4px; }
+    .group-stage-section .group-card .group-table-scroll::-webkit-scrollbar-thumb:hover { background: var(--primary); }
+    .group-stage-section .ranking-table { min-width: 600px; margin: 0; }
+    .group-stage-section .ranking-table thead th {
+      padding: 12px; text-align: center; white-space: nowrap;
+    }
+    .group-stage-section .ranking-table tbody td {
+      padding: 12px; text-align: center; white-space: nowrap; font-size: 0.85rem;
+    }
+    .group-stage-section .ranking-table tbody td:first-child { width: 48px; }
+    .group-stage-section .ranking-table .team-cell { justify-content: center; }
+    .group-stage-section .ranking-table .team-name { max-width: 130px; overflow: hidden; text-overflow: ellipsis; }
+    .group-stage-section .ranking-table thead th:nth-child(-n+2),
+    .group-stage-section .ranking-table tbody td:nth-child(-n+2) {
+      position: sticky; left: 0; z-index: 2;
+      background: var(--bg-card);
+    }
+    .group-stage-section .ranking-table thead th { position: sticky; left: 0; }
+    .group-stage-section .ranking-table thead th:nth-child(2)::after,
+    .group-stage-section .ranking-table tbody td:nth-child(2)::after {
+      content: ''; position: absolute; top: 0; right: -1px; bottom: 0; width: 1px;
+      background: linear-gradient(180deg, transparent, var(--border-color), transparent);
+      pointer-events: none;
+    }
+    body.rtl .group-stage-section .ranking-table thead th:nth-child(-n+2),
+    body.rtl .group-stage-section .ranking-table tbody td:nth-child(-n+2) { left: auto; right: 0; }
+    body.rtl .group-stage-section .ranking-table thead th:nth-child(2)::after,
+    body.rtl .group-stage-section .ranking-table tbody td:nth-child(2)::after { right: auto; left: -1px; }
+    @media (max-width: 768px) {
+      .group-stage-section .ranking-table {
+        display: table; min-width: 540px; font-size: 0.85rem; margin: 0;
+      }
+      .group-stage-section .ranking-table thead { display: table-header-group; }
+      .group-stage-section .ranking-table thead th { padding: 10px 8px; font-size: 0.6rem; }
+      .group-stage-section .ranking-table tbody tr {
+        display: table-row; padding: 0; margin: 0; transform: none;
+      }
+      .group-stage-section .ranking-table tbody td {
+        display: table-cell; padding: 10px 6px; border-bottom: none;
+      }
+      .group-stage-section .ranking-table tbody td::before { content: none; }
+      .group-stage-section .group-card { padding: 14px 12px; }
+      .group-stage-section .group-card .group-header { flex-direction: row; }
+    }
+    @media (max-width: 480px) {
+      .group-stage-section .ranking-table { min-width: 480px; font-size: 0.8rem; }
+      .group-stage-section .group-card .group-header h3 { font-size: 0.85rem; }
+      .group-stage-section .group-card .group-header .group-matches-link { font-size: 0.7rem; }
+    }
   </style>
 </head>
 <body>
@@ -248,7 +286,7 @@
       <p class="section-subtitle" style="font-size:0.95rem;margin-bottom:1.5rem;" data-i18n="roadToFinal">The road to the final.</p>
 
       <div class="qualified-teams-section" id="qualifiedTeamsSection" style="display:none;">
-        <h3 id="qtTitle">🌍 Qualified Teams</h3>
+        <h3 id="qtTitle" data-i18n="qualifiedTeamsTitle">🌍 Qualified Teams</h3>
         <div class="qt-count" id="qtCount"></div>
         <div class="qt-grid" id="qtGrid"></div>
       </div>
@@ -261,22 +299,15 @@
         </div>
       </div>
     </section>
-
-    <!-- Best Third-Placed Teams -->
-    <section class="container reveal" style="padding-bottom: 50px;" id="bestThirdSection">
-      <h2 class="section-title" style="font-size:1.3rem;font-weight:700;">🥉 Best Third-Placed Teams</h2>
-      <p class="section-subtitle" style="font-size:0.95rem;margin-bottom:1.5rem;">Ranking of all 12 third-placed teams. Top 8 qualify for knockout stage.</p>
-      <div id="bestThirdContainer"></div>
-    </section>
   </main>
 
   <footer class="footer" role="contentinfo">
     <div class="container">
       <div class="footer-grid">
-        <div class="footer-brand"><a href="index.html" class="nav-logo"><img src="images/site-logo.jpg" alt="Effotbale" class="nav-logo-img"> <span class="nav-logo-text">EFFOTBALE</span></a><p>The ultimate mobile football gaming experience.</p><div class="footer-social"><a href="https://instagram.com/mr_gt100" target="_blank" rel="noopener" aria-label="Instagram"><img src="images/instagram.png" alt="Instagram" style="width:20px;height:20px;border-radius:4px;"></a><a href="https://wa.me/212783860620" target="_blank" rel="noopener" aria-label="WhatsApp"><img src="images/whatsapp.png" alt="WhatsApp" style="width:20px;height:20px;border-radius:4px;"></a><a href="mailto:esportsma2026@gmail.com" aria-label="Gmail"><img src="images/gmail.png" alt="Gmail" style="width:20px;height:20px;border-radius:4px;"></a></div></div>
-        <div class="footer-links"><h4 data-i18n="nav.tournament">Tournament</h4><a href="tournament.html">World Cup 2026</a><a href="draw.html" data-i18n="nav.draw">Draw</a><a href="classement.html" data-i18n="nav.matches">Matches</a></div>
-        <div class="footer-links"><h4 data-i18n="nav.support">Support</h4><a href="faq.html" data-i18n="nav.faq">FAQ</a><a href="support.html">Contact Us</a><a href="#">Community</a></div>
-        <div class="footer-links"><h4>Legal</h4><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Cookie Policy</a><a href="#">EULA</a></div>
+        <div class="footer-brand"><a href="index.html" class="nav-logo"><img src="images/site-logo.jpg" alt="Effotbale" class="nav-logo-img"> <span class="nav-logo-text">EFFOTBALE</span></a><p data-i18n="footerBrand">The ultimate mobile football gaming experience.</p><div class="footer-social"><a href="https://instagram.com/mr_gt100" target="_blank" rel="noopener" aria-label="Instagram"><img src="images/instagram.png" alt="Instagram" style="width:20px;height:20px;border-radius:4px;"></a><a href="https://wa.me/212783860620" target="_blank" rel="noopener" aria-label="WhatsApp"><img src="images/whatsapp.png" alt="WhatsApp" style="width:20px;height:20px;border-radius:4px;"></a><a href="mailto:esportsma2026@gmail.com" aria-label="Gmail"><img src="images/gmail.png" alt="Gmail" style="width:20px;height:20px;border-radius:4px;"></a></div></div>
+        <div class="footer-links"><h4 data-i18n="nav.tournament">Tournament</h4><a href="tournament.html" data-i18n="wc2026">World Cup 2026</a><a href="draw.html" data-i18n="nav.draw">Draw</a><a href="classement.html" data-i18n="nav.matches">Matches</a></div>
+        <div class="footer-links"><h4 data-i18n="nav.support">Support</h4><a href="faq.html" data-i18n="nav.faq">FAQ</a><a href="support.html" data-i18n="contactUs">Contact Us</a><a href="#" data-i18n="community">Community</a></div>
+        <div class="footer-links"><h4 data-i18n="legal">Legal</h4><a href="#" data-i18n="privacy">Privacy Policy</a><a href="#" data-i18n="terms">Terms of Service</a><a href="#" data-i18n="cookie">Cookie Policy</a><a href="#" data-i18n="eula">EULA</a></div>
       </div>
       <div class="footer-bottom"><p>&copy; 2026 Effotbale. <span data-i18n="footer.rights">All rights reserved.</span></p><p data-i18n="footer.tagline">Made for the love of football.</p></div>
     </div>
@@ -293,19 +324,11 @@
       function getLang() { return typeof EffotbaleLang !== 'undefined' ? EffotbaleLang.getLang() : 'en'; }
 
       var ROUND_META = [
-        { key: 'r32', label: 'Round of 32', labelAr: 'دور الـ32', count: 16 },
-        { key: 'r16', label: 'Round of 16', labelAr: 'دور الـ16', count: 8 },
-        { key: 'qf', label: 'Quarter Finals', labelAr: 'ربع النهائي', count: 4 },
-        { key: 'sf', label: 'Semi Finals', labelAr: 'نصف النهائي', count: 2 },
-        { key: 'third', label: 'Third Place', labelAr: 'المركز الثالث', count: 1 },
-        { key: 'final', label: 'Final', labelAr: 'النهائي', count: 1 }
-      ];
-
-      var R32_PLACEHOLDER_PAIRINGS = [
-        { a: 'A1', b: 'W8' }, { a: 'B1', b: 'W7' }, { a: 'C1', b: 'W6' }, { a: 'D1', b: 'W5' },
-        { a: 'E1', b: 'W4' }, { a: 'F1', b: 'W3' }, { a: 'G1', b: 'W2' }, { a: 'H1', b: 'W1' },
-        { a: 'I2', b: 'L2' }, { a: 'J2', b: 'K2' }, { a: 'I1', b: 'L1' }, { a: 'J1', b: 'K1' },
-        { a: 'A2', b: 'C2' }, { a: 'D2', b: 'F2' }, { a: 'B2', b: 'E2' }, { a: 'G2', b: 'H2' }
+        { key: 'r32', label: 'Round of 32', labelAr: 'دور الـ32' },
+        { key: 'r16', label: 'Round of 16', labelAr: 'دور الـ16' },
+        { key: 'qf', label: 'Quarter Finals', labelAr: 'ربع النهائي' },
+        { key: 'sf', label: 'Semi Finals', labelAr: 'نصف النهائي' },
+        { key: 'final', label: 'Final', labelAr: 'النهائي' }
       ];
 
       function renderGroups() {
@@ -347,7 +370,8 @@
           header.className = 'group-header';
           header.innerHTML = '<h3>' + (getLang() === 'ar' ? 'المجموعة ' : 'Group ') + key + '</h3><a href="classement.html?group=' + key + '" class="group-matches-link">' + (getLang() === 'ar' ? 'المباريات' : 'Matches') + ' →</a>';
           card.appendChild(header);
-          var table = document.createElement('table'); table.className = 'ranking-table'; table.style.marginTop = '0';
+          var table = document.createElement('table'); table.className = 'ranking-table';
+          var scrollWrap = document.createElement('div'); scrollWrap.className = 'group-table-scroll';
           var thead = document.createElement('thead');
           thead.innerHTML = '<tr>' + labels.map(function (l) { return '<th>' + l + '</th>'; }).join('') + '</tr>';
           table.appendChild(thead);
@@ -370,27 +394,8 @@
               tbody.appendChild(tr);
             });
           }
-          table.appendChild(tbody); card.appendChild(table); view.appendChild(card); views.appendChild(view);
+          table.appendChild(tbody); scrollWrap.appendChild(table); card.appendChild(scrollWrap); view.appendChild(card); views.appendChild(view);
         });
-      }
-
-      function renderBestThird() {
-        var container = document.getElementById('bestThirdContainer');
-        var third = EffotbaleDB.getBestThirdRanking();
-        var lang = getLang();
-        if (!third || third.length === 0) {
-          container.innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-muted);font-size:0.85rem;">' + (lang === 'ar' ? 'لم تكتمل أي مجموعة بعد.' : 'No groups completed yet.') + '</div>';
-          return;
-        }
-        var html = '<div class="third-place-grid"><table class="third-ranking-table"><thead><tr><th>#</th><th>' + (lang === 'ar' ? 'المنتخب' : 'Team') + '</th><th>' + (lang === 'ar' ? 'المجموعة' : 'Group') + '</th><th>' + (lang === 'ar' ? 'نقاط' : 'Pts') + '</th><th>' + (lang === 'ar' ? 'فارق' : 'GD') + '</th><th>' + (lang === 'ar' ? 'له' : 'GF') + '</th></tr></thead><tbody>';
-        third.forEach(function (t, idx) {
-          var rankClass = idx < 8 ? 'third-rank-' + (idx + 1) : '';
-          var name = lang === 'ar' ? (t.nameAr || t.name) : t.name;
-          var gc = t.gd > 0 ? 'stat-positive' : (t.gd < 0 ? 'stat-negative' : 'stat-neutral');
-          html += '<tr class="' + rankClass + '" style="animation:fadeSlideIn 0.3s ease ' + (idx * 0.04) + 's both;"><td class="rank-cell">' + (idx + 1) + '</td><td><span class="team-cell"><img src="' + t.flag + '" alt="" style="width:20px;height:14px;border-radius:2px;vertical-align:middle;margin-right:6px;" onerror="this.style.display=\'none\'"> ' + name + '</span></td><td style="font-family:\'Orbitron\',sans-serif;font-size:0.7rem;color:var(--text-muted);">' + t._group + '</td><td style="font-weight:700;font-family:\'Orbitron\',sans-serif;">' + t.pts + '</td><td class="' + gc + '">' + (t.gd > 0 ? '+' : '') + t.gd + '</td><td>' + t.gf + '</td></tr>';
-        });
-        html += '</tbody></table></div>';
-        container.innerHTML = html;
       }
 
       function renderQualifiedTeams() {
@@ -436,24 +441,18 @@
         var draw = EffotbaleDB.getDraw();
         var allGroupsDone = draw && matches.length > 0 && matches.every(function (m) { return m.status === 'finished'; });
 
-        empty.style.display = 'none';
-        bracket.innerHTML = '';
-
-        if (!allGroupsDone) {
-          /* Show placeholder bracket */
-          renderPlaceholderBracket(bracket, lang);
-          return;
-        }
-
-        if (!ko) {
+        if (!ko || !allGroupsDone) {
+          bracket.innerHTML = '';
           empty.style.display = 'block';
           document.getElementById('koEmptyText').textContent = t('knockoutBracketEmpty');
           return;
         }
+        empty.style.display = 'none';
+        bracket.innerHTML = '';
 
         ROUND_META.forEach(function (meta, rIdx) {
           var roundDiv = document.createElement('div'); roundDiv.className = 'kb-round';
-          roundDiv.style.animation = 'fadeSlideIn 0.5s ease ' + (rIdx * 0.08) + 's both';
+          roundDiv.style.animation = 'fadeSlideIn 0.5s ease ' + (rIdx * 0.1) + 's both';
           var title = document.createElement('div'); title.className = 'kb-round-title';
           title.textContent = lang === 'ar' ? meta.labelAr : meta.label;
           roundDiv.appendChild(title);
@@ -462,6 +461,7 @@
             var p = document.createElement('div'); p.style.cssText = 'text-align:center;color:var(--text-muted);font-size:0.75rem;padding:20px 0;';
             p.textContent = t('awaiting'); roundDiv.appendChild(p);
           } else {
+            /* Group by parentId to show one card per tie with aggregate */
             var ties = {};
             roundMatches.forEach(function (m) {
               var pid = m.parentId || m.id;
@@ -474,18 +474,23 @@
               var leg1 = tie.legs.find(function (l) { return l.leg === 1; });
               var leg2 = tie.legs.find(function (l) { return l.leg === 2; });
               if (!leg1) return;
-              var m = leg1;
+              var m = leg1; /* Use leg1 data for team info */
               var wrapper = document.createElement('div'); wrapper.className = 'kb-match-wrapper';
-              wrapper.style.animation = 'tiltIn 0.4s ease ' + (rIdx * 0.08 + tIdx * 0.03) + 's both';
+              wrapper.style.animation = 'tiltIn 0.4s ease ' + (rIdx * 0.1 + tIdx * 0.03) + 's both';
               var card = document.createElement('div'); card.className = 'kb-match';
               var nameA = lang === 'ar' ? (m.nameArA || m.nameA || m.teamA || t('teamTbd')) : (m.nameA || m.teamA || t('teamTbd'));
               var nameB = lang === 'ar' ? (m.nameArB || m.nameB || m.teamB || t('teamTbd')) : (m.nameB || m.teamB || t('teamTbd'));
-              var allDone = leg1.scoreA !== null && leg1.scoreB !== null && leg2.scoreA !== null && leg2.scoreB !== null && leg1.status === 'finished' && leg2.status === 'finished';
+              /* Calculate aggregate if both legs are finished */
+              var allDone = leg1 && leg2 && leg1.scoreA !== null && leg1.scoreB !== null && leg2.scoreA !== null && leg2.scoreB !== null && leg1.status === 'finished' && leg2.status === 'finished';
               var aggA = allDone ? (leg1.scoreA + leg2.scoreB) : null;
               var aggB = allDone ? (leg1.scoreB + leg2.scoreA) : null;
               var winner = allDone ? (aggA > aggB ? 'A' : (aggB > aggA ? 'B' : '')) : '';
-              var scoreDisplay = allDone ? '<span class="kb-score">' + aggA + '</span>' : '<span class="kb-score">-</span>';
-              var scoreDisplayB = allDone ? '<span class="kb-score">' + aggB + '</span>' : '<span class="kb-score">-</span>';
+              var scoreDisplay = allDone
+                ? '<span class="kb-score">' + aggA + '</span>'
+                : '<span class="kb-score">-</span>';
+              var scoreDisplayB = allDone
+                ? '<span class="kb-score">' + aggB + '</span>'
+                : '<span class="kb-score">-</span>';
               var legDetail = '';
               if (leg1 && leg2) {
                 var s1A = leg1.scoreA !== null ? leg1.scoreA : '?';
@@ -509,62 +514,19 @@
         });
       }
 
-      function renderPlaceholderBracket(bracket, lang) {
-        var placeholders = [0,1,2,3].map(function () { return { key: '', label: '', matches: [] }; });
-        var rounds = [
-          { key: 'r32', label: 'Round of 32', labelAr: 'دور الـ32', count: 16 },
-          { key: 'r16', label: 'Round of 16', labelAr: 'دور الـ16', count: 8 },
-          { key: 'qf', label: 'Quarter Finals', labelAr: 'ربع النهائي', count: 4 },
-          { key: 'sf', label: 'Semi Finals', labelAr: 'نصف النهائي', count: 2 },
-          { key: 'third', label: 'Third Place', labelAr: 'المركز الثالث', count: 1 },
-          { key: 'final', label: 'Final', labelAr: 'النهائي', count: 1 }
-        ];
-        rounds.forEach(function (meta, rIdx) {
-          var roundDiv = document.createElement('div'); roundDiv.className = 'kb-round kb-round-placeholder';
-          roundDiv.style.animation = 'fadeSlideIn 0.5s ease ' + (rIdx * 0.08) + 's both';
-          var title = document.createElement('div'); title.className = 'kb-round-title';
-          title.textContent = lang === 'ar' ? meta.labelAr : meta.label;
-          roundDiv.appendChild(title);
-          var pairings = [];
-          if (meta.key === 'r32') {
-            pairings = R32_PLACEHOLDER_PAIRINGS;
-          } else if (meta.key === 'final' || meta.key === 'third') {
-            pairings = [{ a: 'TBD', b: 'TBD' }];
-          } else {
-            for (var i = 0; i < meta.count; i++) pairings.push({ a: 'TBD', b: 'TBD' });
-          }
-          pairings.forEach(function (p, pIdx) {
-            var wrapper = document.createElement('div'); wrapper.className = 'kb-match-wrapper';
-            wrapper.style.animation = 'tiltIn 0.4s ease ' + (rIdx * 0.08 + pIdx * 0.02) + 's both';
-            var card = document.createElement('div'); card.className = 'kb-match';
-            var isR32 = meta.key === 'r32';
-            card.innerHTML =
-              '<div class="kb-teams">' +
-                '<div class="kb-team"><span class="kb-name" style="font-family:\'Orbitron\',sans-serif;letter-spacing:1px;font-size:0.75rem;">' + (isR32 ? p.a : '—') + '</span><span class="kb-score">-</span></div>' +
-                '<div class="kb-vs">VS</div>' +
-                '<div class="kb-team"><span class="kb-name" style="font-family:\'Orbitron\',sans-serif;letter-spacing:1px;font-size:0.75rem;">' + (isR32 ? p.b : '—') + '</span><span class="kb-score">-</span></div>' +
-              '</div>' +
-              '<div class="kb-status">' + (isR32 ? (lang === 'ar' ? 'قادمة' : 'Upcoming') : (lang === 'ar' ? 'في الانتظار' : 'Awaiting')) + '</div>';
-            wrapper.appendChild(card);
-            roundDiv.appendChild(wrapper);
-          });
-          bracket.appendChild(roundDiv);
-        });
-      }
-
       function autoRefresh() {
         renderGroups();
 
+        /* Hide knockout section until all groups finished */
         var allMatches = EffotbaleDB.getMatchResults();
         var hasDraw = EffotbaleDB.getDraw();
         var allDone = hasDraw && allMatches.length > 0 && allMatches.every(function (m) { return m.status === 'finished'; });
-        document.getElementById('knockoutSection').style.display = 'block';
+        document.getElementById('knockoutSection').style.display = allDone ? 'block' : 'none';
         var groupToKo = document.getElementById('groupToKnockoutLink');
         if (groupToKo) groupToKo.style.display = allDone ? 'block' : 'none';
 
         renderQualifiedTeams();
         renderKnockoutBracket();
-        renderBestThird();
 
         /* Handle URL params: ?group=X to auto-select group tab */
         var params = new URLSearchParams(window.location.search);
